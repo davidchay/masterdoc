@@ -1,0 +1,307 @@
+<!-- navegacion -->
+<div class="navbar navbar-inverse navbar-fixed-top animated fadeIn" role="navigation">
+ 	<div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	        	<span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		    </button>
+	        <a class="navbar-brand"><img src="img/logoEditor.png" alt="MASTERedit"></a>
+	        <!--<img class="navbar-brand" src="img/logoEditor.png" alt="MASTERedit">-->
+	    </div>
+	    <div class="collapse navbar-collapse navbar-ex1-collapse">
+	          	<!--Menu principal-->
+	          	<span class="navbar-left">
+	          		<button type="button" class="btn btn-info navbar-btn btn-sm" ng-click="confirmarToRevision()" ng-disabled="editorCP.$invalid" ><i class="fa fa-search"></i> Enviar a Revisión</button>
+	          	</span>
+	          	<span class="navbar-right">
+	          		<button type="button" class="btn btn-info navbar-btn btn-xs" ng-click="guardar()" ng-disabled="editorCP.$invalid">Guardar</button>
+
+	          		<button type="button" class="btn btn-info navbar-btn btn-xs" ng-click="guardarSalir()" ng-disabled="editorCP.$invalid">Guardar y Salir</button>
+	          		
+	          		<button type="button" class="btn btn-danger navbar-btn btn-xs" ng-click="salirNoGuardar()">Salir sin Guardar</button>
+	          	</span>
+	    </div><!-- /.navbar-collapse -->
+	</div>   
+</div>
+<!-- finaliza navegacion -->
+<div id="mensaje-editor" class=""></div>
+<div class="container main animated fadeIn">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<table class="table table-bordered text-center separator-top">
+				<tbody>
+					<tr>
+				    	<td rowspan="2">
+				    	<br>
+				    		<img width="90"src="img/logo-procesa.jpg" alt="Procesa">
+				    	</td>
+				       	<td>
+				             <h4>Procesamiento Especializado de Alimentos, S.A.P.I. de C.V.</h4>
+				       	</td>
+				       	<td>
+				          <h5 >{{fecha}}</h5>
+				       	</td>
+				    </tr>
+				   	<tr>
+				    	<td >
+				      		<h4>{{nombre_doc}}</h4>
+				     	</td>
+				      	<td>
+				      		<h5>{{codigo}}</h5>
+				      	</td>
+				   	</tr>
+				</tbody>
+			</table>
+			<br>
+			<table class="table table-bordered text-center">
+				<tbody>
+					<tr>
+			            <td><strong>Editor</strong><h4>{{creador}}</h4><span>{{creador_puesto}}</span></td>
+			            <td><strong>Revisor</strong><h4>{{revisor}}</h4><span>{{revisor_puesto}}</span></td>
+			            <td><strong>Autorizador</strong><h4>{{autorizador}}</h4><span>{{autorizador_puesto}}</span></td>
+			          </tr>
+				</tbody>
+			</table>
+			<p class="text-right">
+				<strong>Tipo de Documento: </strong>
+				{{tipo_documento}}<br/>
+				<strong>Fecha de Creación: </strong>
+				{{fecha_creacion}}<br/>
+				<strong ng-show="ultima_modificacion">Ultima modificación: </strong>
+				{{ultima_modificacion}}
+			</p>
+		</div><!-- end col 8-->
+		</div><!-- end row -->
+		<div class="row">	
+			<div id="contenttoolbar">
+				<div id="mytoolbar"></div>
+			</div>
+			<form role="form" name="editorCP">
+				<div id="completa" class="col-md-10 col-md-offset-1">
+					
+					<section class="clearfix">
+						<h1>1. Objetivo</h1>
+						<div ui-tinymce-inline="objetivoTinyOp"  class="editable" ng-model="objetivo" strip-br="true" required></div>
+						<blockquote ng-show="comentarioObjetivoRevisor">
+							<p>{{comentarioObjetivoRevisor}}</p>
+							<footer><cite>{{revisor}}</cite></footer>
+						</blockquote>
+						<blockquote ng-show="comentarioObjetivoAutorizador" class="pull-right">
+							<p>{{comentarioObjetivoAutorizador}}</p>
+							<footer><cite>{{autorizador}}</cite></footer>
+						</blockquote>
+					</section>
+					<hr>
+					<section class="clearfix">
+						<h1>2. Alcance</h1>
+						<div ui-tinymce-inline="alcanceTinyOp" class="editable" ng-model="alcance"  required></div>
+						<blockquote ng-show="comentarioAlcanceRevisor">
+							<p>{{comentarioAlcanceRevisor}}</p>
+							<footer><cite>{{revisor}}</cite></footer>
+						</blockquote>
+						<blockquote ng-show="comentarioAlcanceAutorizador" class="pull-right">
+							<p>{{comentarioAlcanceAutorizador}}</p>
+							<footer><cite>{{autorizador}}</cite></footer>
+						</blockquote>
+					</section>
+					<hr>
+					<section class="clearfix">
+						<h1>3. Definiciones</h1>
+						<div ui-tinymce-inline="definicionesTinyOp" class="editable" ng-model="definiciones"  required></div>
+						<blockquote ng-show="comentarioDefinicionesRevisor">
+							<p>{{comentarioDefinicionesRevisor}}</p>
+							<footer><cite>{{revisor}}</cite></footer>
+						</blockquote>
+						<blockquote ng-show="comentarioDefinicionesAutorizador" class="pull-right">
+							<p>{{comentarioDefinicionesAutorizador}}</p>
+							<footer><cite>{{autorizador}}</cite></footer>
+						</blockquote>
+					</section>
+					<hr>
+					<section class="clearfix">
+						<h1>4. Responsabilidades</h1>
+						<table class="table table-condensed separator-top">
+							<thead>
+								<tr>
+									<th><h4>Area</h4></th>
+									<th colspan="2"><h4>Acciones</h4></th>
+								<!--<th>&nbsp;</th>-->
+								</tr>	
+							</thead>
+							<tfoot>
+								<tr>
+									<td colspan="2" class="text-center">
+										<button type="button" class="btn btn-primary btn-sm" ng-click="agregarRespon();">Agregar otro registro</button>
+									</td>
+								</tr>
+							</tfoot>
+							<tbody>
+								<tr ng-repeat="res in responsabilidades" id="{{$index}}">
+									<td>
+										<textarea class="form-control" ng-model="res.area"></textarea>
+									</td>
+									<td>
+										<textarea class="form-control" ng-model="res.acciones"></textarea>
+									</td>
+									<td>
+										<button type="button" class="btn btn-danger btn-xs" ng-click="eliminarRes($index)">
+											<i class="fa fa-times"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<blockquote ng-show="comentarioResponsabilidadesRevisor">
+							<p>{{comentarioResponsabilidadesRevisor}}</p>
+							<footer><cite>{{revisor}}</cite></footer>
+						</blockquote>
+						<blockquote ng-show="comentarioResponsabilidadesAutorizador" class="pull-right">
+							<p>{{comentarioResponsabilidadesAutorizador}}</p>
+							<footer><cite>{{autorizador}}</cite></footer>
+						</blockquote>
+					</section>
+					<hr>
+					<section class="clearfix">
+						<h1>5. Desarrollo</h1>
+						<div  ui-tinymce-inline="desarrolloTinyOp" class="editable" ng-model="desarrollo" strip-br="true" required></div>
+						<blockquote ng-show="comentarioDesarrolloRevisor">
+							<p>{{comentarioDesarrolloRevisor}}</p>
+							<footer><cite>{{revisor}}</cite></footer>
+						</blockquote>
+						<blockquote ng-show="comentarioDesarrolloAutorizador" class="pull-right">
+							<p>{{comentarioDesarrolloAutorizador}}</p>
+							<footer><cite>{{autorizador}}</cite></footer>
+						</blockquote>
+					</section>
+					<hr/>
+					<section class="clearfix">
+						<h1>6. Referencias</h1>
+						<div ui-tinymce-inline="referenciasTinyOp" class="editable" ng-model="referencias" strip-br="true" required></div>
+						<blockquote ng-show="comentarioReferenciasRevisor">
+							<p>{{comentarioReferenciasRevisor}}</p>
+							<footer><cite>{{revisor}}</cite></footer>
+						</blockquote>
+						<blockquote ng-show="comentarioReferenciasAutorizador" class="pull-right">
+							<p>{{comentarioReferenciasAutorizador}}</p>
+							<footer><cite>{{autorizador}}</cite></footer>
+						</blockquote>
+					</section>
+					<hr>
+					<section class="clearfix">
+						<h1>7. Registros</h1>
+						<table class="table table-bordered table-condensed separator-top">
+							<thead>
+								<tr class="active">
+									<th colspan="5" class="text-center">
+										<h4>REGISTROS QUE RESULTAN DE LA REALIZACIÓN DEL PROCEDIMIENTO
+										</h4>
+									</th>
+								</tr>
+								<tr class="active">
+									<th>Nombre del registro</th>
+									<th>Código</th>
+									<th>Responsable</th>
+									<th>Tiempo de resguardo</th>
+									<th>&nbsp;</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<td colspan="5" class="active text-center">
+										<button type="button" class="btn btn-primary btn-sm" ng-click="agregarRegistro()">Agregar otro registros</button>
+									</td>
+								</tr>
+							</tfoot>
+							<tbody>
+								<tr ng-repeat="registro in registros">
+									<td>
+										<textarea class="intable form-control" ng-model="registro.nombre_registro"></textarea>
+									</td>
+									<td>
+										<textarea class="intable form-control" ng-model="registro.codigo"></textarea>
+									</td>
+									<td>
+										<textarea class="intable form-control" ng-model="registro.responsable"></textarea>
+									</td>
+									<td>
+										<textarea class="intable form-control" ng-model="registro.tiempo_resguardo"></textarea>  
+									</td>
+									<td>
+										<button type="button" class="btn btn-danger btn-sm" ng-click="eliminarRegistro($index)">
+										<i class="fa fa-times"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<blockquote ng-show="comentarioReferenciasRevisor">
+							<p>{{comentarioReferenciasRevisor}}</p>
+							<footer><cite>{{revisor}}</cite></footer>
+						</blockquote>
+						<blockquote ng-show="comentarioReferenciasAutorizador" class="pull-right">
+							<p>{{comentarioReferenciasAutorizador}}</p>
+							<footer><cite>{{autorizador}}</cite></footer>
+						</blockquote>
+					</section>
+					<hr/>
+					<section class="clearfix">
+						<h1>8. Anexos</h1>
+						<div  ui-tinymce-inline="anexosTinyOp" class="editable" ng-model="anexos" strip-br="true" required></div>
+						<blockquote ng-show="comentarioAnexosRevisor">
+							<p>{{comentarioAnexosRevisor}}</p>
+							<footer><cite>{{revisor}}</cite></footer>
+						</blockquote>
+						<blockquote ng-show="comentarioAnexosAutorizador" class="pull-right">
+							<p>{{comentarioAnexosAutorizador}}</p>
+							<footer><cite>{{autorizador}}</cite></footer>
+						</blockquote>
+						
+							<!-- lista de distribucion-->
+					</section>
+					<hr/>
+					<section class="clearfix">
+						<h1>9. Revisión</h1>
+						<table class="table separator-bottom table-bordered">
+					        <thead>
+					          <tr class="active">
+					            <th>No.</th>
+					            <th>Fecha de cambio</th>
+					            <th>Descripción del cambio</th>
+					            <th>Justificación de cambio</th>
+					            <th>Responsable</th>
+					          <tr>
+					        </thead>
+					        <tbody>
+					          <tr ng-repeat="rev in revisionList">
+					            <td>{{$index+1}}</td>
+					            <td>{{rev.fecha_cambio}}</td>
+					            <td>{{rev.descripcion_cambio}}</td>
+					            <td>{{rev.descripcion_justificacion}}</td>
+					            <td>{{rev.responsable}}</td>
+					          </tr>
+					        </tbody>
+					    </table>
+							<!-- -->
+					</section>
+					<hr/>
+					<div class="row">
+						<!--<div class="col-md-6">
+							<img width="120"src="img/logo-procesa.jpg" alt="Procesa">
+						</div>
+						<div class="col-md-6">
+							Desarrollo por David Chay 
+						</div>-->
+					</div>
+				</div><!-- end completa -->
+			</form>
+			
+		</div><!--end row-->
+</div><!-- finaliza container-->
+			
+
+
+

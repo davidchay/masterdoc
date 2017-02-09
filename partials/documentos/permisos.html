@@ -1,0 +1,66 @@
+<div class="panel panel-default animated fadeInLeft">
+  <div class="panel-body">
+  	<div class="page-header">
+  	  	<h3>
+    		<i class="fa fa-unlock-alt"></i> 
+    		Permisos de Documentos
+  	 	<div class="col-sm-4 pull-right">
+  	 		<div class="input-group">
+  			  	<span class="input-group-addon">
+  			  		<i class="fa fa-search"></i>
+  			  	</span>
+  	 			<input type="text" ng-model="query"  class="mg- form-control" id="searchBorrador" placeholder="Burcar documento...">
+  	 		</div>
+  		 </div>
+    	</h3>
+	</div>
+	<div class="mensaje"></div>
+	<table class="table table-hover no-margin-bootom">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Nombre
+					<a ng-click="orden='nombre_documento';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				<th>Codigo
+					<a ng-click="orden='codigo';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				<th>Fecha
+					<a ng-click="orden='fecha';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				<th class="text-center">Acción</th>
+			</tr>
+		</thead>
+		<tbody >
+		<tr id="{{borrador.id_documento}}" ng-repeat="borrador in borradoresList | filter:query| orderBy:orden:reversa" id="borrador.id_documento">
+				<td >{{$index+1}}</td>
+				<td >
+					<span title="{{borrador.nombre_documento}}">
+					   {{borrador.nombre_documento | characters:85:false}}
+					</span>
+				</td>
+				<td >{{borrador.codigo}}</td>
+				<td >{{borrador.fecha}}</td>
+				<td class="text-center">
+					<div ng-switch on="borrador.estado">
+						<div ng-switch-when="Autorizado">
+			       			<div ng-if="usuario.id_perfil==0">
+			       				<button type="button" class="btn btn-primary btn-xs" ng-click="transitionTo({idDocumento:borrador.id_documento,tabla:borrador.tabla})"><i class="fa fa-key"></i> Permisos</button>
+			       			</div>
+
+			           	</div>
+			           	<div ng-switch-default>
+				        	<button type="button" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-pencil"></i> Editar</button>
+				        </div>
+				    </div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div ng-show="borradoresList==0" class="text-center">
+		<p class="lead">
+			No se encontró ningun documento aprobado.
+		</p>
+	</div>
+  </div><!-- end panel-body-->
+</div><!-- end panel-->

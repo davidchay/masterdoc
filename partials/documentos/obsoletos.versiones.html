@@ -1,0 +1,71 @@
+<div class="panel panel-default animated fadeInLeft">
+  <div class="panel-body">
+  	<div class="page-header">
+  		<h4>
+    		<a ui-sref="escritorio.documentos.obsoletos" title="Regresar a obsoletos">
+	  	  	<span class="fa-stack fa-lg">
+			  <i class="fa fa-circle fa-stack-2x"></i>
+			  <i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>
+			</span></a>
+    		<i class="fa fa-history"></i> 
+    		Versiones obsoletas del documento
+    	</h4>
+  	  	<h3>
+  	  		<i class="fa fa-archive"></i>
+    		{{nombre_documento}}  
+    	</h3>
+	</div>
+
+	<button ng-show="usuario.id_perfil==0" input="button" class="btn  btn-link btn-xs" ng-click="crearPDF()"><i class="fa fa-file-pdf-o"></i> Crear reporte</button>
+	
+	<div class="mensaje"></div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-primary">
+			  <div class="panel-body">
+			  		<table class="table table-hover no-margin-bootom">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Nombre
+									<a ng-click="orden='nombre_documento';reversa=!reversa"><i class="fa fa-sort"></i></a>
+								</th>
+								<th>Codigo
+									<a ng-click="orden='codigo';reversa=!reversa"><i class="fa fa-sort"></i></a>
+								</th>
+								<th>Fecha
+									<a ng-click="orden='fecha';reversa=!reversa"><i class="fa fa-sort"></i></a>
+								</th>
+								<th  class="text-center">Acción</th>
+							</tr>
+						</thead>
+						<tbody >
+						<tr id="{{version.id_documento}}" ng-repeat="version in versionesList | filter:query| orderBy:orden:reversa">
+								<td >{{$index+1}}</td>
+								<td >
+									<span title="{{version.nombre_documento}}">
+								   {{version.nombre_documento | characters:85:false}}
+									</span>
+								</td>
+								<td >{{version.codigo}}</td>
+								<td >{{version.fecha}}</td>
+								<td class="text-center">
+									<button type="button" class="btn btn-primary btn-xs" ng-click="verArchivo(version.id_documento,version.consecutivo)">Ver documento <i class="fa fa-external-link"></i></button>
+								</td>
+								
+							</tr>
+						</tbody>
+					</table>  
+					<div ng-show="versionesList==0" class="text-center">
+						<p class="lead">
+							Es probable que el documento se encuentre en la sección de <a ui-sref="escritorio.documentos.aprobados">Aprobados</a>.
+						</p>
+					</div>
+			  </div>
+			</div>
+		</div>
+		
+		
+	</div><!--end row-->
+  </div><!-- end panel-body-->
+</div><!-- end panel-->

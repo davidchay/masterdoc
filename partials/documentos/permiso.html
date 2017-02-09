@@ -1,0 +1,105 @@
+<div class="panel panel-default animated fadeInLeft">
+  <div class="panel-body">
+  	<div class="page-header">
+    	<h4>
+    		<a ui-sref="escritorio.documentos.permisos" title="Regresar a permisos">
+	  	  	<span class="fa-stack fa-lg">
+			  <i class="fa fa-circle fa-stack-2x"></i>
+			  <i class="fa fa-arrow-left fa-stack-1x fa-inverse"></i>
+			</span></a>
+    		<i class="fa fa-key"></i> 
+    		Permisos de acceso al documento
+    	</h4>
+  	  	<h3>
+  	  		<i class="fa fa-file-text"></i>
+    		{{nombre_documento}}  
+    		<small>{{codigo}}</small>
+    		<small>{{fecha}}</small>
+    	</h3>
+	</div>
+	<div class="mensaje"></div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+			  <div class="panel-heading"><h4>Detalles del documento</h4></div>
+			  <div class="panel-body">
+			    <dl>
+					  <dt>Tipo</dt>
+					  <dd>{{tipo}}</dd>
+					  <br/>
+					  <dt>Area</dt>
+					  <dd>{{area}}</dd>
+					  <br/>
+					  <dt>Creador </dt>
+					  <dd>{{creador}}</dd>
+					  <br/>
+					  <dt>Revisor</dt>
+					  <dd>{{revisor}}</dd>
+					  <br/>
+					  <dt>Autorizador</dt>
+					  <dd>{{autorizador}}</dd>
+					  <br/>
+					  <dt>Estado</dt>
+					  <dd>{{estado}}</dd>
+					  <br/>
+					  <dt>Fecha de creación</dt>
+					  <dd>{{fecha_creacion}}</dd>
+					  <br/>
+					  <dt>Ultima Modificación</dt>
+					  <dd>{{ultima_modificacion}}</dd>
+				</dl>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading"><h4>Permisos por puesto</h4></div>
+			  <div class="panel-body">
+				<form>
+					<fieldset>
+					<!--	<legend>Permisos por puesto</legend>
+						<div class="row">
+							<div class="col-md-6" ng-repeat="puesto in puestoList">
+								<button id="puesto.id_puesto" type="button" class="btn-sm btn" ng-class="{true: 'btn-success', false: 'btn-primary'}[puesto.check == 1]" btn-checkbox btn-checkbox-true=1 btn-checkbox-false=0 ng-model="puesto.check" ng-click="seleccionarPuesto(puesto.id_puesto)">
+									<i class="fa"ng-class="{true: 'fa-check', false: ''}[puesto.check == 1]"></i> {{puesto.nombre_puesto}}
+								</button><br/><br/>
+							</div><!-- end col-md-3 -->
+						<!--</div><!-- end row-->	
+						 <div class="input-group">
+					      <input type="text"  ng-model="puesto_selec" class="form-control" placeholder="Agregar puesto" typeahead="puesto as puesto.nombre_puesto for puesto in puestos | filter:$viewValue | limitTo:8">
+					      <span class="input-group-btn">
+					        <button ng-disabled="!puesto_selec.id_puesto"class="btn btn-success" type="button"  ng-click="addPuesto(puesto_selec)">
+					        	<i class="fa fa-plus"></i>
+					        </button>
+					      </span>
+					    </div><!-- /input-group -->
+					    <table class="table table-striped separator-top">
+					    	<thead>
+					    		<tr>
+					    			<th>#</th>
+					    			<th>Puesto</th>
+					    			<th>&nbsp;</th>
+					    		</tr>
+					    	</thead>
+					    	<tbody>
+					    		<tr ng-repeat="puesto in puestoList">
+					    			<td>{{$index+1}}</td>
+					    			<td>{{puesto.nombre_puesto}}</td>
+					    			<td class="text-right">
+					    				<button type="button" class="btn btn-danger btn-xs"  ng-click="rmPuesto($index)">
+					    				<i class="fa fa-times"></i></button>
+					    			</td>
+					    		</tr>
+					    	</tbody>
+					    	
+					    </table>
+					</fieldset>
+				</form>
+				</div>
+			</div><!-- end well-->
+			<button type="button" class="btn btn-primary pull-right" ng-click="guardar()"><i class="fa fa-save" ></i> Guardar permisos</button>
+		</div>
+		
+	</div><!--end row-->
+  </div><!-- end panel-body-->
+</div><!-- end panel-->

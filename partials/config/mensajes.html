@@ -1,0 +1,341 @@
+<div class="panel panel-default animated fadeInLeft">
+  <div class="panel-body">
+  	<div class="page-header">
+  	  	<h3>
+    		<i class="fa fa-paper-plane-o"></i>
+    		Mensajes de email
+  	 	</h3>
+	</div>
+	<div class="mensaje"></div>
+	<p class="clearfix">	
+		<button type="button" class="btn btn-link pull-right" ng-click="h=false" ng-show="h" title="¡Ayuda!" >
+			<i class="fa fa-question-circle fa-lg text-primary" ></i>
+		</button>
+		<div class="alert alert-dismissable alert-info" ng-show="!h">
+  			<button type="button" class="close"  ng-click="h=true">×</button>
+  			<i class="fa fa-question-circle fa-5x pull-left"></i>
+  			<div style="display:inline-block">
+	  			<h4>Utilice sl siguiente diccionario para personalizar el mensaje:</h4>
+				%nombre% = Nombre del usuario a quién va dirigido el mensaje<br>
+				%documento% = Nombre del documento<br>
+				%codigo% = Codigo del documento
+			</div>
+		</div>
+	</p>
+    		<accordion close-others="oneAtATime">
+			    <accordion-group>
+			    	<accordion-heading >
+			    		<span class="hover">
+			    			Cuando un documento se ha creado...
+			    		</span>
+			    	</accordion-heading>
+			    	<form name="formNuevoDoc" class="form-horizontal">
+					  <fieldset>
+					    <legend>Nuevo documento</legend>
+					    <div id="mensajeND"></div>
+					    <div class="form-group">
+					      <label for="asuntoND" class="col-lg-2 control-label">Asunto</label>
+					      <div class="col-lg-10">
+					        <input type="text" name="asuntoND" id="asuntoND" class="form-control" ng-model="nuevoDoc.asunto" required>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label class="col-lg-2 control-label">Editor</label>
+					      <div class="col-lg-10">
+					        <textarea id="creadorND" class="form-control" ui-tinymce="tinyOps" ng-model="nuevoDoc.creador" required></textarea>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label class="col-lg-2 control-label">Revisor</label>
+					      <div class="col-lg-10">
+					        <textarea class="form-control" ui-tinymce="tinyOps" ng-model="nuevoDoc.revisor" required></textarea>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label class="col-lg-2 control-label">Autorizador</label>
+					      <div class="col-lg-10">
+					        	<textarea class="form-control" ui-tinymce="tinyOps" ng-model="nuevoDoc.autorizador" required></textarea>
+					    </div>
+				    	<div class="form-group">
+					   	  <div class="col-lg-10 col-lg-offset-2">
+					        <button type="button" class="btn btn-success btn-sm" ng-click="guardarND(nuevoDoc);" ng-disabled="formNuevoDoc.$invalid">
+				    			<i class="fa fa-check"></i> Guardar
+				    		</button>
+					      </div>
+					    </div>
+					  </fieldset>
+					</form>
+			    </accordion-group>
+   			    <accordion-group >
+			    	<accordion-heading>
+			    		<span class="hover">
+			    			Cuando un documento pasa a revisión...
+			    		</span>
+			    	</accordion-heading>
+			    		<form name="formToRevisor" class="form-horizontal">
+						  <fieldset>
+						    <legend>Revisión</legend>
+						    <div id="mensajeRV"></div>
+						    <div class="form-group">
+						      <label for="asuntoND" class="col-lg-2 control-label">Asunto</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" ng-model="alRevisor.asunto" required>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label class="col-lg-2 control-label">Revisor</label>
+						      <div class="col-lg-10">
+						        <textarea class="form-control" ui-tinymce="tinyOps" ng-model="alRevisor.revisor" required></textarea>
+						      </div>
+						    </div>
+						   
+					    	<div class="form-group">
+						   	  <div class="col-lg-10 col-lg-offset-2">
+						        <button type="button" class="btn btn-success btn-sm" ng-click="guardarRevision(alRevisor);" ng-disabled="formToRevisor.$invalid">
+				    			<i class="fa fa-check"></i> Guardar
+				    			</button>
+						      </div>
+						    </div>
+						  </fieldset>
+						</form>
+			    </accordion-group>
+   			    <accordion-group>
+   			    	<accordion-heading>
+   			    		<span class="hover">
+			    			Cuando un documento pasa a aprobación...
+			    		</span>
+			    	</accordion-heading>
+			    	<form name="formToAprobador" class="form-horizontal">
+					  <fieldset>
+					    <legend>Aprobación</legend>
+					    <div id="mensajeAT"></div>
+					    <div class="form-group">
+					      <label for="asuntoND" class="col-lg-2 control-label">Asunto</label>
+					      <div class="col-lg-10">
+					        <input type="text" class="form-control" ng-model="autorizador.asunto" required>
+					      </div>
+					    </div>
+					    
+					    <div class="form-group">
+					      <label class="col-lg-2 control-label">Autorizador</label>
+					      <div class="col-lg-10">
+					        	<textarea class="form-control" ui-tinymce="tinyOps" ng-model="autorizador.autorizador" required></textarea>
+					    </div>
+				    	<div class="form-group">
+					   	  <div class="col-lg-10 col-lg-offset-2">
+					        <button type="button" class="btn btn-success btn-sm" ng-click="guardarAprobacion(autorizador);" ng-disabled="formToAprobador.$invalid">
+				    			<i class="fa fa-check"></i> Guardar
+				    		</button>
+					      </div>
+					    </div>
+					  </fieldset>
+					</form>
+			    </accordion-group>
+			    <accordion-group >
+			    	<accordion-heading>
+			    		<span class="hover">
+			    			Cuando un documento regresa a edición...
+			    		</span>
+			    	</accordion-heading>
+			    	<form name="formToEdicion" class="form-horizontal">
+						  <fieldset>
+						    <legend>Edición</legend>
+						    <div id="mensajeED"></div>
+						    <div class="form-group">
+						      <label for="asuntoND" class="col-lg-2 control-label">Asunto</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" ng-model="edicion.asunto" required>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label class="col-lg-2 control-label">Editor</label>
+						      <div class="col-lg-10">
+						        <textarea class="form-control" ui-tinymce="tinyOps" ng-model="edicion.creador" required></textarea>
+						      </div>
+						    </div>
+						   
+					    	<div class="form-group">
+						   	  <div class="col-lg-10 col-lg-offset-2">
+						        <button type="button" class="btn btn-success btn-sm" ng-click="guardarEdicion(edicion);" ng-disabled="formToEdicion.$invalid">
+				    			<i class="fa fa-check"></i> Guardar
+				    			</button>
+						      </div>
+						    </div>
+						  </fieldset>
+						</form>
+			    </accordion-group>
+			    <accordion-group >
+			    	<accordion-heading>
+			    		<span class="hover">
+			    			Cuando un documento es eliminado...
+			    		</span>
+			    	</accordion-heading>
+			    	<form name="formEliminado" class="form-horizontal">
+						  <fieldset>
+						    <legend>Eliminado</legend>
+						    <div id="mensajeEL"></div>
+						    <div class="form-group">
+						      <label class="col-lg-2 control-label">Asunto</label>
+						      <div class="col-lg-10">
+						        <input type="text" class="form-control" ng-model="eliminado.asunto" required>
+						      </div>
+						    </div>
+						    
+						    <div class="form-group">
+						      <label class="col-lg-2 control-label">Editor/Revisor/Autorizador</label>
+						      <div class="col-lg-10">
+						        <textarea class="form-control" ui-tinymce="tinyOps" ng-model="eliminado.usuarios" required></textarea>
+						      </div>
+						    </div>
+						   
+					    	<div class="form-group">
+						   	  <div class="col-lg-10 col-lg-offset-2">
+						        <button type="button" class="btn btn-success btn-sm" ng-click="guardarEliminado(eliminado);" ng-disabled="formEliminado.$invalid">
+				    			<i class="fa fa-check"></i> Guardar
+				    			</button>
+						      </div>
+						    </div>
+						  </fieldset>
+						</form>
+			    </accordion-group>
+			    <accordion-group>
+   			    	<accordion-heading>
+   			    		<span class="hover">
+			    			Cuando un documento es aprobado...
+			    		</span>
+			    	</accordion-heading>
+			    	<form name="formAprobado" class="form-horizontal">
+					  <fieldset>
+					    <legend>Aprobado</legend>
+					    <div id="mensajeAP"></div>
+					    <div class="form-group">
+					      <label class="col-lg-2 control-label">Asunto</label>
+					      <div class="col-lg-10">
+					        <input type="text" class="form-control" ng-model="aprobado.asunto" required>
+					      </div>
+					    </div>
+					    
+					    <div class="form-group">
+					      <label class="col-lg-2 control-label">Autorizados/Administrador</label>
+					      <div class="col-lg-10">
+					        <textarea class="form-control" ui-tinymce="tinyOps" ng-model="aprobado.usuarios" required></textarea>
+					      </div>
+					    </div>
+					   
+				    	<div class="form-group">
+					   	  <div class="col-lg-10 col-lg-offset-2">
+					        <button type="button" class="btn btn-success btn-sm" ng-click="guardarAprobado(aprobado);" ng-disabled="formAprobado.$invalid">
+				    			<i class="fa fa-check"></i> Guardar
+				    		</button>
+					      </div>
+					    </div>
+					  </fieldset>
+					</form>
+			    </accordion-group>
+			    <accordion-group>
+   			    	<accordion-heading>
+   			    		<span class="hover">
+			    			Cuando a un documento se le hace una nueva revisión...
+			    		</span>
+			    	</accordion-heading>
+			    	<form name="formRevisionDoc" class="form-horizontal">
+					  <fieldset>
+					    <legend>Nueva revición</legend>
+					    <div id="mensajeRVD"></div>
+					    <div class="form-group">
+					      <label class="col-lg-2 control-label">Asunto</label>
+					      <div class="col-lg-10">
+					        <input type="text" class="form-control" ng-model="revisionDoc.asunto" required>
+					      </div>
+					    </div>
+					    
+					    <div class="form-group">
+					      <label class="col-lg-2 control-label">Editor/Revisor/Autorizador - Administrador</label>
+					      <div class="col-lg-10">
+					        <textarea class="form-control" ui-tinymce="tinyOps" ng-model="revisionDoc.usuarios" required></textarea>
+					      </div>
+					    </div>
+					   
+				    	<div class="form-group">
+					   	  <div class="col-lg-10 col-lg-offset-2">
+					        <button type="button" class="btn btn-success btn-sm" ng-click="guardarRevisionDoc(revisionDoc);" ng-disabled="formRevisionDoc.$invalid">
+				    			<i class="fa fa-check"></i> Guardar
+				    		</button>
+					      </div>
+					    </div>
+					  </fieldset>
+					</form>
+			    </accordion-group>
+			    <accordion-group>
+   			    	<accordion-heading>
+   			    		<span class="hover">
+			    			Cuando un documento pasa ha obsoleto...
+			    		</span>
+			    	</accordion-heading>
+			    	<form name="formObsoleto" class="form-horizontal">
+					  <fieldset>
+					    <legend>Obsoleto</legend>
+					    <div id="mensajeOB"></div>
+					    <div class="form-group">
+					      <label class="col-lg-2 control-label">Asunto</label>
+					      <div class="col-lg-10">
+					        <input type="text" class="form-control" ng-model="obsoleto.asunto" required>
+					      </div>
+					    </div>
+					    
+					    <div class="form-group">
+					      <label class="col-lg-2 control-label">Editor/Revisor/Autorizador - Administrador</label>
+					      <div class="col-lg-10">
+					        <textarea class="form-control" ui-tinymce="tinyOps" ng-model="obsoleto.usuarios" required></textarea>
+					      </div>
+					    </div>
+					   
+				    	<div class="form-group">
+					   	  <div class="col-lg-10 col-lg-offset-2">
+					        <button type="button" class="btn btn-success btn-sm" ng-click="guardarObsoleto(obsoleto);" ng-disabled="formObsoleto.$invalid">
+				    			<i class="fa fa-check"></i> Guardar
+				    		</button>
+					      </div>
+					    </div>
+					  </fieldset>
+					</form>
+			    </accordion-group>
+			    <accordion-group>
+   			    	<accordion-heading>
+   			    		<span class="hover">
+			    			Cuando se le concede permiso para ver un documento...
+			    		</span>
+			    	</accordion-heading>
+			    	<form name="formPermiso" class="form-horizontal">
+					  <fieldset>
+					    <legend>Permiso de acceso a documento</legend>
+					    <div id="mensajePE"></div>
+					    <div class="form-group">
+					      <label class="col-lg-2 control-label">Asunto</label>
+					      <div class="col-lg-10">
+					        <input type="text" class="form-control" ng-model="permiso.asunto" required>
+					      </div>
+					    </div>
+					    
+					    <div class="form-group">
+					      <label class="col-lg-2 control-label">Usuarios con permiso de ver el documento</label>
+					      <div class="col-lg-10">
+					        <textarea class="form-control" ui-tinymce="tinyOps" ng-model="permiso.usuarios" required></textarea>
+					      </div>
+					    </div>
+					   
+				    	<div class="form-group">
+					   	  <div class="col-lg-10 col-lg-offset-2">
+					       <button type="button" class="btn btn-success btn-sm" ng-click="guardarPermiso(permiso);" ng-disabled="formPermiso.$invalid">
+				    			<i class="fa fa-check"></i> Guardar
+				    		</button>
+					      </div>
+					    </div>
+					  </fieldset>
+					</form>
+			    </accordion-group>
+   			</accordion>
+  </div><!-- end panel-body-->
+</div><!-- end panel-->

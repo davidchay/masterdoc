@@ -1,0 +1,55 @@
+<div class="panel panel-default animated fadeInLeft">
+  <div class="panel-body"  ng-controller="listaUsuariosCtrl">
+  	<div class="page-header">
+  	  	<h3>
+    		<i class="fa fa-list"></i> Lista de usuarios
+  	 	<div class="col-sm-4 pull-right">
+  	 		<div class="input-group">
+  			  	<span class="input-group-addon">
+  			  		<i class="fa fa-search"></i>
+  			  	</span>
+  	 			
+  	 			<input type="text" ng-model="query"  class="mg- form-control" id="searchUsuario" placeholder="Burcar usuario...">
+  	 		</div>
+  		 </div>
+    	</h3>
+	</div>
+
+	<table class="table table-hover no-margin-bootom">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Nombre(s) 
+					<a ng-click="orden='nombre';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				<th>Apellido(s)
+					<a ng-click="orden='apellidos';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				<th>Email
+					<a ng-click="orden='email';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				<th>Area
+					<a ng-click="orden='area';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				<th>Usuario
+					<a ng-click="orden='usuario';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				
+			</tr>
+		</thead>
+		<tbody >
+		<tr ng-repeat="usuario in usuariosList | filter:query| orderBy:orden:reversa" id="usuario.id_usuario" 
+		ng-click="transitionTo('escritorio.usuarios.detalles',{idUsuario:usuario.id_usuario})" class="hover">
+				<td >{{$index+1}}</td>
+				<td >{{usuario.nombre}}</td>
+				<td >{{usuario.apellidos}}</td>
+				<td >{{usuario.email}}</td>
+				<td >{{usuario.area}}</td>
+				<td >{{usuario.usuario}}</td>
+			</tr>
+		</tbody>
+	</table>
+  </div><!-- end panel-body-->
+</div><!-- end panel-->
+
+

@@ -1,0 +1,92 @@
+<accordion close-others="oneAtATime">
+			    <accordion-group>
+			    	<accordion-heading >
+			    		<span class="hover">
+			    			Edición...
+			    		</span>
+			    	</accordion-heading>
+			    	<form name="formEdit">
+			    		<div id="mensajeEdit"></div>
+			    		<strong>Tiempo para editar el documento</strong>
+			    		<div class="row">
+						  <div class="col-lg-3">
+						    <div class="input-group">
+							  <input type="text" class="form-control">
+							  <span class="input-group-addon"> Dias </span>
+							</div>
+						  </div><!-- /.col-lg-3 -->
+						</div><!-- /.row -->
+						<br>
+				    	<strong>Asunto</strong>
+				    	<input type="text" class="form-control" ng-model="tiempoEdicion.asunto" required>
+				    	<br>
+				    	<strong>Mensaje para el revisor</strong>
+				    	<textarea class="form-control" ui-tinymce="tinyOps" ng-model="tiempoEdicion.revisor" required></textarea>
+				    	<br>
+				    	<div class="row">
+						  <div class="col-lg-3">
+						    <div class="input-group">
+							  <input type="text" class="form-control">
+							  <span class="input-group-addon"> Dias </span>
+							</div>
+						  </div><!-- /.col-lg-3 -->
+						</div><!-- /.row -->
+						<br>
+				    	<strong>Asunto</strong>
+				    	<input type="text" class="form-control" ng-model="tiempoEdicion.asunto" required>
+				    	<br>
+				    	
+					   	<strong>Mensaje para el autorizador</strong>
+				    	<textarea class="form-control" ui-tinymce="tinyOps" ng-model="tiempoEdicion.autorizador" required></textarea>
+				    	<br/>
+				    	<div class="text-right">
+				    		<button type="button" class="btn btn-success btn-sm" ng-click="guardarEdit(tiempoEdicion);" ng-disabled="formEdit.$invalid">
+				    			<i class="fa fa-check"></i> Guardar
+				    		</button>
+				    	</div>	
+				    </form>
+			    </accordion-group>
+		    	<accordion-group>
+		    		<accordion-heading >
+			    		<span class="hover">
+			    			other Edición...
+			    		</span>
+			    	</accordion-heading>
+		    		<form class="form-horizontal">
+					  <fieldset>
+					    <legend>Legend</legend>
+					    <div class="form-group">
+					      <label for="inputEmail" class="col-lg-2 control-label">Asunto</label>
+					      <div class="col-lg-10">
+					        <input type="text" class="form-control"  >
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label for="textArea" class="col-lg-2 control-label">Mensaje</label>
+					      <div class="col-lg-10">
+					        <textarea class="form-control" rows="3" id="textArea" ui-tinymce="tinyOps" ng-model="tiempoEdicion.autorizador"></textarea>
+					        <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label for="select" class="col-lg-2 control-label">Selects</label>
+					      <div class="col-lg-10">
+					        <select class="form-control" id="select">
+					          <option>1</option>
+					          <option>2</option>
+					          <option>3</option>
+					          <option>4</option>
+					          <option>5</option>
+					        </select>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <div class="col-lg-10 col-lg-offset-2">
+					        <button type="submit" class="btn btn-primary">Submit</button>
+					      </div>
+					    </div>
+					  </fieldset>
+					</form>
+
+		    	</accordion-group>
+   			</accordion>

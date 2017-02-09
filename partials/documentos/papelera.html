@@ -1,0 +1,62 @@
+<div class="panel panel-default animated fadeInLeft">
+  <div class="panel-body">
+  	<div class="page-header">
+  	  	<h3>
+    		<i class="fa fa-recycle"></i> 
+    		Documentos en papelera
+  	 	<div class="col-sm-4 pull-right">
+  	 		<div class="input-group">
+  			  	<span class="input-group-addon">
+  			  		<i class="fa fa-search"></i>
+  			  	</span>
+  	 			<input type="text" ng-model="query"  class="mg- form-control" id="searchBorrador" placeholder="Burcar documento...">
+  	 		</div>
+  		 </div>
+    	</h3>
+	</div>
+	<button ng-show="usuario.id_perfil==0" input="button" class="btn  btn-link btn-xs" ng-click="crearPDF()"><i class="fa fa-file-pdf-o"></i> Crear reporte</button>
+	<div class="mensaje"></div>
+	<table class="table table-hover no-margin-bootom">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th >Nombre
+					<a ng-click="orden='nombre_documento';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				<th >Codigo
+					<a ng-click="orden='codigo';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th >
+				<th>Fecha de eliminación
+					<a ng-click="orden='fecha';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				<th>
+					Justificación
+				</th>
+				<th class="text-center">&nbsp;</th>
+				<th class="text-center">&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody >
+		<tr id="{{eliminado.id_documento}}" ng-repeat="eliminado in eliminadosList | filter:query| orderBy:orden:reversa" id="eliminado.id_documento">
+				<td >{{$index+1}}</td>
+				<td ><span  title="{{eliminado.nombre_documento}}">{{eliminado.nombre_documento | characters:45 :false}}</span></td>
+				<td >{{eliminado.codigo}}</td>
+				<td >{{eliminado.fecha_eliminado}}</td>
+				<td><span  title="{{eliminado.justificacion_eliminado}}">{{eliminado.justificacion_eliminado | characters:30 :false}}</span></td>
+				<td class="text-center">
+					<button  type="button" class="btn btn-info btn-xs" ng-click="verDetalles(eliminado.id_documento,eliminado.tabla)"><i class="fa fa-info-circle"></i> Detalles</button>
+				</td>
+				<td>
+					<button  type="button" class="btn btn-success btn-xs" ng-click="confirmaReciclar(eliminado.id_documento,eliminado.nombre_documento,eliminado.tabla)"><i class="fa fa-recycle"></i> Restaurar</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div ng-show="eliminadosList==0" class="text-center">
+		<p class="lead">
+			No se encontró ningun documento en papelera.
+		</p>
+	</div>
+  </div><!-- end panel-body-->
+</div><!-- end panel-->

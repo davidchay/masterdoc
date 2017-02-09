@@ -1,0 +1,101 @@
+<div id="mensaje-revisor"></div>
+<div class="navbar navbar-default animated fadeIn" role="navigation">
+  <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand"><img src="img/logoArchivo.png" alt="MASTERedit"></a>
+      </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <span class="navbar-right">
+          <button type="button" class="btn btn-primary navbar-btn btn-sm" ng-click="atras();"><i class="fa fa-arrow-left"></i> Regresar </button>
+          <span ng-if="usuario.id_perfil==0">
+            <button type="button" class="btn btn-primary navbar-btn btn-sm" ng-click="crearPDF()" ><i class="fa fa-file-pdf-o"></i> PDF</button>
+          </span>
+         
+        </span>
+      </div>
+  </div>   
+</div>
+<div class="container ineditable animated fadeIn">
+  <div class="row text-center">
+    <div class="col-md-12">
+      <table class="table table-bordered text-center separator-top">
+        <tbody>
+          <tr>
+              <td rowspan="2">
+                <br>
+                <img width="90"src="img/logo-procesa.jpg" alt="Procesa">
+              </td>
+              <td>
+                <h4>Procesamiento Especializado de Alimentos, S.A.P.I. de C.V.</h4>
+              </td>
+              <td>
+                <h5 >{{fecha}}</h5>
+              </td>
+            </tr>
+            <tr>
+              <td >
+                  <h4>{{nombre_doc}}</h4>
+              </td>
+              <td>
+                 <h5>{{codigo}}</h5>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+      <br>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td><strong>Editor</strong><h4>{{creador}}</h4><span>{{creador_puesto}}</span></td>
+            <td><strong>Revisor</strong><h4>{{revisor}}</h4><span>{{revisor_puesto}}</span></td>
+            <td><strong>Autorizador</strong><h4>{{autorizador}}</h4><span>{{autorizador_puesto}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end col 12-->
+  </div><!-- end row-->
+</div>
+<div class="container bs-docs-container ineditable">     
+  <div class="row">
+    <div class="mensaje"></div>
+    <div class="col-md-12">
+    <div id="mensaje"></div>
+      <div class="bs-docs-section clearfix">
+        <div ng-bind-html="html"></div>
+        <p ng-show="html" class="text-right text-muted"><small>NOTA: Si el documento que carga no es el correcto, por favor vacie la caché de su navegador y vuelva a entrar a esta sección.</small></p>
+        <hr>
+      </div>
+      <h3 id="revision" class="separator-top separator-bottom">Historial de Revisión</h3>
+      <table class="table separator-bottom table-bordered">
+        <thead>
+          <tr class="active">
+            <th>No.</th>
+            <th>Fecha de cambio</th>
+            <th>Descripción del cambio</th>
+            <th>Justificación de cambio</th>
+            <th>Responsable</th>
+          <tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="rev in revisionList">
+            <td>{{$index+1}}</td>
+            <td>{{rev.fecha_cambio}}</td>
+            <td>{{rev.descripcion_cambio}}</td>
+            <td>{{rev.descripcion_justificacion}}</td>
+            <td>{{rev.responsable}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr class="separator-top">
+      
+    </div><!-- END col-md-12 -->
+  </div>
+</div>
+
+

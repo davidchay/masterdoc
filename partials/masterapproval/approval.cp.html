@@ -1,0 +1,413 @@
+<div id="mensaje-revisor"></div>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand"><img src="img/logoApproval.png" alt="MASTERedit"></a>
+      </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <span class="navbar-left">
+          <button type="button" class="btn btn-warning navbar-btn btn-sm" ng-click="confirmarToEdicion()"><i class="fa fa-pencil"></i> Regresar a edición</button>
+          <button type="button" class="btn btn-primary navbar-btn btn-sm" ng-click="confirmarToAprobacion()" ><i class="fa fa-thumbs-o-up"></i> Autorizar el documento</button>
+        </span>
+        <span class="navbar-right">
+          <button type="button" class="btn btn-info navbar-btn btn-xs" ng-click="guardar()">Guardar</button>
+
+          <button type="button" class="btn btn-info navbar-btn btn-xs" ng-click="guardarSalir()">Guardar y Salir</button>
+                
+          <button type="button" class="btn btn-danger navbar-btn btn-xs" ng-click="salirNoGuardar()">Salir sin Guardar</button>
+        </span>
+      </div>
+  </div>   
+</div>
+<div class="container main">
+  <div class="row text-center">
+    <div class="col-md-12 ">
+      <table class="table table-bordered text-center separator-top">
+        <tbody>
+          <tr>
+              <td rowspan="2">
+                <br>
+                <img width="90"src="img/logo-procesa.jpg" alt="Procesa">
+              </td>
+              <td>
+                <h4>Procesamiento Especializado de Alimentos, S.A.P.I. de C.V.</h4>
+              </td>
+              <td>
+                <h5 >{{fecha}}</h5>
+              </td>
+            </tr>
+            <tr>
+              <td >
+                  <h4>{{nombre_doc}}</h4>
+              </td>
+              <td>
+                 <h5>{{codigo}}</h5>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+      <br>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td><strong>Editor</strong><h4>{{creador}}</h4><span>{{creador_puesto}}</span></td>
+            <td><strong>Revisor</strong><h4>{{revisor}}</h4><span>{{revisor_puesto}}</span></td>
+            <td><strong>Autorizador</strong><h4>{{autorizador}}</h4><span>{{autorizador_puesto}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end col 12-->
+  </div><!-- end row-->
+</div>
+<div class="container bs-docs-container">     
+  <div class="row">
+    <div class="col-sm-9  col-md-10">
+      <div class="bs-docs-section">
+        <div class="page-header">
+          <h1 id="objetivo" bs-scrollspy>1. Objetivo</h1>
+        </div>
+        <div ng-bind-html="objetivo" compile-template></div>
+        <br/>
+        <blockquote ng-show="comentarioObjetivoRevisor">
+          <p>{{comentarioObjetivoRevisor}}</p>
+          <footer><cite>{{revisor}}</cite></footer>
+        </blockquote>
+        <div id="objetivoComent" class="content-comentario" bs-scrollspy>
+          <div class="well">
+            <div class="page-header"> 
+              <h4><i class="fa fa-comment-o"></i> Agrega un cometario para objetivo</h4>
+            </div>
+            <textarea ng-model="commentObjetivo" class="form-control" rows="6" placeholder="Escribe tus comentarios"></textarea>
+            <br/>
+            <em class="text-muted">&#8212; {{autorizador}}</em>
+          </div>
+        </div><!-- end content-comentario -->
+      </div>
+      <div class="bs-docs-section">
+        <div class="page-header">
+          <h1 id="alcance" bs-scrollspy>2. Alcance</h1>
+        </div>
+        <div ng-bind-html="alcance" ></div>
+        <br/>
+        <blockquote ng-show="comentarioAlcanceRevisor">
+          <p>{{comentarioAlcanceRevisor}}</p>
+          <footer><cite>{{revisor}}</cite></footer>
+        </blockquote>
+        <div id="alcanceComent" class="content-comentario" bs-scrollspy>
+          <div class="well">
+            <div class="page-header">
+              <h4><i class="fa fa-comment-o"></i> Agrega un comentario para alcance</h4>
+            </div>
+            <textarea ng-model="commentAlcance" class="form-control" rows="6" placeholder="Escribe tus comentarios"></textarea>
+            <br/>
+            <em class="text-muted">&#8212; {{autorizador}}</em>
+          </div>
+        </div><!-- end content-comentario -->
+      </div>
+      <div class="bs-docs-section">
+      <div class="page-header">
+        <h1 id="definiciones" bs-scrollspy>3. Definiciones</h1>
+      </div>
+      <div ng-bind-html="definiciones" ></div>
+      <br/>
+      <blockquote ng-show="comentarioDefinicionesRevisor">
+          <p>{{comentarioDefinicionesRevisor}}</p>
+          <footer><cite>{{revisor}}</cite></footer>
+        </blockquote>
+      <div id="definicionesComent" class="content-comentario">
+        <div class="well">
+          <div class="page-header">
+            <h4><i class="fa fa-comment-o"></i> Agrega un comentario para definiciones</h4>
+          </div>
+          <textarea ng-model="commentDefiniciones" class="form-control" rows="6" placeholder="Escribe tus comentarios"></textarea>
+          <br/>
+          <em class="text-muted">&#8212; {{autorizador}}</em>
+        </div>
+      </div><!-- end content-comentario -->
+    </div>
+    <div class="bs-docs-section">
+      <div class="page-header">
+        <h1 id="responabilidades" bs-scrollspy>4. Responsabilidades</h1>
+      </div>
+      <table class="table separator-top table-bordered">
+        <thead>
+          <tr class="active">
+            <th width="15">#</th>
+            <th width="50%">Area</th>
+            <th width="50%">Acciones</th>
+          <tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="res in responsabilidades">
+            <td>{{$index+1}}</td>
+            <td>{{res.area}}</td>
+            <td>{{res.acciones}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <br/>
+      <blockquote ng-show="comentarioResponsabilidadesRevisor">
+          <p>{{comentarioResponsabilidadesRevisor}}</p>
+          <footer><cite>{{revisor}}</cite></footer>
+        </blockquote>
+      <div id="responsabilidadesComent" class="content-comentario" bs-scrollspy>
+        <div class="well">
+          <div class="page-header">
+            <h4><i class="fa fa-comment-o"></i> Agrega un comentario para responsabilidades</h4>
+          </div>
+          <textarea class="form-control" ng-model="commentResponsabilidades" rows="6" placeholder="Escribe tus comentarios"></textarea>
+          <br/>
+          <em class="text-muted">&#8212; {{autorizador}}</em>
+        </div>
+      </div> <!-- end content-comentario -->
+    </div>
+
+    <div class="bs-docs-section" >
+      <div class="page-header">
+        <h1 id="desarrollo" bs-scrollspy>5. Desarrollo</h1>
+      </div>
+      <div ng-bind-html="desarrollo"></div>
+      <br/>
+      <blockquote ng-show="comentarioDesarrolloRevisor">
+          <p>{{comentarioDesarrolloRevisor}}</p>
+          <footer><cite>{{revisor}}</cite></footer>
+        </blockquote>
+      <div id="desarrolloComent" class="content-comentario" bs-scrollspy>
+        <div class="well">
+          <div class="page-header">
+            <h4><i class="fa fa-comment-o"></i> Agrega un comentario para desarrollo</h4>
+          </div>
+          <textarea ng-model="commentDesarrollo"rows="6" placeholder="Escribe tus comentarios" class="form-control"></textarea>
+          <br/>
+          <em class="text-muted">&#8212; {{autorizador}}</em>
+        </div>  
+      </div><!-- end content-comentario-->  
+    </div>
+    <div class="bs-docs-section">
+      <div class="page-header">
+        <h1 id="referencias" bs-scrollspy>6. Referencias</h1>
+      </div>
+      <div ng-bind-html="referencias"></div>
+      <br/>
+      <blockquote ng-show="comentarioReferenciasRevisor">
+          <p>{{comentarioReferenciasRevisor}}</p>
+          <footer><cite>{{revisor}}</cite></footer>
+        </blockquote>
+      <div id="referenciasComent" class="content-comentario" bs-scrollspy>
+        <div class="well">
+          <div class="page-header">
+            <h4><i class="fa fa-comment-o"></i> Agrega un comentario para referencias</h4>
+          </div>
+          <textarea class="form-control" ng-model="commentReferencias" rows="6" placeholder="Escribe tus comentarios"></textarea><br/>
+          <em class="text-muted">&#8212; {{autorizador}}</em>
+        </div> 
+      </div> <!--end content-comentario -->
+    </div>
+    <div class="bs-docs-section">
+      <div class="page-header">
+        <h1 id="registros" bs-scrollspy>7. Registros</h1>
+      </div>
+      <table class="table separator-top table-bordered">
+        <thead>
+          <tr class="active">
+            <th>#</th>
+            <th>Nombre del Registro</th>
+            <th>Código</th>
+            <th>Responsable</th>
+            <th>Tiempo de resguardo</th>
+          <tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="reg in registros">
+            <td>{{$index+1}}</td>
+            <td>{{reg.nombre_registro}}</td>
+            <td>{{reg.codigo}}</td>
+            <td>{{reg.responsable}}</td>
+            <td>{{reg.tiempo_resguardo}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <br/>
+      <blockquote ng-show="comentarioRegistrosRevisor">
+          <p>{{comentarioRegistrosRevisor}}</p>
+          <footer><cite>{{revisor}}</cite></footer>
+        </blockquote>
+      <div id="registrosComent" class="content-comentario" bs-scrollspy>
+        <div class="well">
+          <div class="page-header">
+            <h4><i class="fa fa-comment-o"></i> Agrega un comentario para registros</h4>
+          </div>  
+          <textarea ng-model="commentRegistros" class="form-control" rows="6" placeholder="Escribe tus comentarios"></textarea>
+          <br/>
+          <em class="text-muted">&#8212; {{autorizador}}</em>
+        </div>
+      </div><!-- end content-comentario -->
+        
+    </div>
+
+    <div class="bs-docs-section" >
+      <div class="page-header">
+        <h1 id="anexos" bs-scrollspy>8. Anexos</h1>
+      </div>
+      <div ng-bind-html="anexos"></div>
+      <br>
+      <blockquote ng-show="comentarioAnexosRevisor">
+          <p>{{comentarioAnexosRevisor}}</p>
+          <footer><cite>{{revisor}}</cite></footer>
+        </blockquote>
+      <div id="anexosComent" class="content-comentario" bs-scrollspy>
+        <div class="well">
+          <div class="page-header">
+            <h4><i class="fa fa-comment-o"></i> Agrega un comentario para anexos</h4>
+          </div>  
+          <textarea ng-model="commentAnexos" class="form-control" rows="6" placeholder="Escribe tus comentarios"></textarea>
+          <br/>
+          <em class="text-muted">&#8212; {{autorizador}}</em>
+        </div>
+      </div><!-- end content-comentario -->
+    </div>
+
+    <div class="bs-docs-section" >
+      <div class="page-header">
+        <h1 id="revision" bs-scrollspy>9. Revisión</h1>
+      </div>
+      <table class="table separator-bottom table-bordered">
+          <thead>
+            <tr class="active">
+              <th>No.</th>
+              <th>Fecha de cambio</th>
+              <th>Descripción del cambio</th>
+              <th>Justificación de cambio</th>
+              <th>Responsable</th>
+            <tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="rev in revisionList">
+              <td>{{$index+1}}</td>
+              <td>{{rev.fecha_cambio}}</td>
+              <td>{{rev.descripcion_cambio}}</td>
+              <td>{{rev.descripcion_justificacion}}</td>
+              <td>{{rev.responsable}}</td>
+            </tr>
+          </tbody>
+      </table>
+      <!-- -->
+      
+    </div>
+      
+      
+    </div>
+    <div class="col-sm-3 col-md-2">
+      <div class="bs-docs-sidebar bs-sidebar hidden-print affix-top" role="complementary" data-offset-top="-70" data-spy="affix" bs-affix bs-scrollspy>
+            <ul class="nav bs-docs-sidenav bs-sidenav" bs-scrollspy-list>
+              <li bs-scrollspy data-target="#objetivo">
+                <a href="#objetivo">Objetivo</a>
+                <ul class="nav">
+                  <li bs-scrollspy data-target="#objetivoComent" >
+                    <a href="#objetivoComent">Comentario</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li data-target="#alcance" bs-scrollspy>
+                <a href="#alcance">Alcance</a>
+                <ul class="nav">
+                  <li data-target="#alcanceComent" bs-scrollspy>
+                    <a href="#alcanceComent">Comentario</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li data-target="#definiciones" bs-scrollspy>
+                <a href="#definiciones">Definiciones</a>
+                <ul class="nav">
+                  <li data-target="#definicionesComent" bs-scrollspy>
+                    <a href="#definicionesComent">Comentario</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li data-target="#responabilidades" bs-scrollspy>
+                <a href="#responabilidades">Responsabilidades</a>
+                <ul class="nav">
+                  <li data-target="#responsabilidadesComent" bs-scrollspy>
+                    <a href="#responsabilidadesComent">Comentario</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li data-target="#desarrollo" bs-scrollspy>
+                <a href="#desarrollo">Desarrollo</a>
+                <ul class="nav">
+                  <li data-target="#desarrolloComent" bs-scrollspy>
+                    <a href="#desarrolloComent">Comentario</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li data-target="#referencias" bs-scrollspy>
+                <a href="#referencias">Referencias</a>
+                <ul class="nav">
+                  <li data-target="#referenciasComent" bs-scrollspy>
+                    <a href="#referenciasComent">Comentario</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li data-target="#registros" bs-scrollspy>
+                <a href="#registros">Registros</a>
+                <ul class="nav">
+                  <li data-target="#registrosComent" bs-scrollspy>
+                    <a href="#registrosComent">Comentario</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li data-target="#anexos" bs-scrollspy>
+                <a href="#anexos">Anexos</a>
+                <ul class="nav">
+                  <li data-target="#anexosComent" bs-scrollspy>
+                    <a href="#anexosComent">Comentario</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li data-target="#revision" bs-scrollspy>
+                <a href="#revision">Revisión</a>
+              </li>
+
+            </ul>
+              
+            
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  $(function() {
+      $('a[href*=#]:not([href=#])').click(function() {
+        if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+          var target = $(this.hash);
+          target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+          if (target.length) {
+            $('html,body').animate({
+              scrollTop: target.offset().top
+            }, 1000);
+            return false;
+          }
+        }
+      });
+
+      
+  });
+
+</script>

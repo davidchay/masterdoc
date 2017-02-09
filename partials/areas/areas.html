@@ -1,0 +1,235 @@
+<div class="col-sm-4 col-md-3 sidebar animated fadeIn">
+    <div class="page-header">
+      <h3><span class="fa fa-tags"></span> Areas</h3>
+    </div>
+    <form role="form" name="formNuevaArea" role="form" ng-submit="addArea()">
+        <fieldset>
+          <legend>Agregar Area</legend>
+          <div id="msg"></div>
+          <div class="form-group">
+            <label for="nueva_area">
+             * Area
+            </label>
+            <input type="text" name="nueva_area" id="nueva_area" ng-model="nueva_area" class="form-control" required autofocus>
+          </div>
+            
+          <div class="form-group">
+            <label for="nuevo_codigo">
+              * Codigo
+            </label>
+            <input type="text" name="nuevo_codigo" id="nuevo_codigo" ng-model="nuevo_codigo" class="form-control" maxlength="2" ui-keypress={'enter':'agregar()'} required>
+          </div><!-- /input-group -->
+          <div class="form-group">
+            <label for="nueva_descripcion">Descripción</label>
+            <textarea id="nueva_descripcion" name="nueva_descripcion" ng-model="nueva_descripcion" class="form-control" ></textarea>
+          </div>
+          <div class="form-group text-right">
+                <button id="agregar" type="submit" ng-click="agregar()" ng-disabled="formNuevaArea.$invalid || nuevo_codigo.length!=2" class="btn btn-success"><i class="fa fa-plus"></i> Agregar</button>
+           
+          </div>
+        </fieldset>
+      </form>
+</div>
+<div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main animated fadeInLeft">
+    <div class="page-header">
+            <div class="col-lg-3 pull-right">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-search"></i>
+                </span>
+                <input type="text" id="query" ng-model="query" class="form-control" placeholder="Buscar...">
+              </div>
+            </div>
+          <h3>
+            <i class="fa fa-th-list"></i> Lista de Areas
+          </h3>
+      </div>
+    <div class="panel panel-default">
+      <div class="panel-body">   
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Area (Codigo)&nbsp;
+                    <a href="" ng-click="orden='nombre_area';reversa=!reversa"><i class="fa fa-sort"></i></a>
+                </th>
+                <th colspan="2">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="area in areaList | filter:query| orderBy:orden:reversa" id="{{area.id_area}}">
+                <td>{{$index+1}}</td>
+                <td>
+                    <span ng-show="mode!='edit'" style="display:block">{{area.nombre_area}}</span>
+                    <em class="text-muted" ng-show="mode!='edit'">{{area.descripcion}}</em>
+                    <div class="panel panel-primary" ng-show="mode=='edit'">
+                      <div class="panel-body" style="position:relative;">
+                            <button type="button" class="btn btn-link btn-xs" style="position:absolute;top:0;right:0" ng-click="mode=null" title="cerrar"><i class="fa fa-times text-danger"></i> 
+                          </button>
+                          <br>
+                          <div class="row" >
+                            <div class="col-lg-12">
+                                <input type="text" class="form-control" ng-model="area.area" placeholder="Introduce el area" required>
+                            </div>
+                          </div>
+                          <div class="row" >
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" ng-model="area.codigo" placeholder="Introduce el codigo" maxlength="2" required>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="row">
+                            <div class="col-lg-12">
+                                <textarea class="form-control" ng-model="area.descripcion" placeholder="Agrega una descripcion"></textarea>
+                            </div>
+                          </div><br>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="mnss"></div>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-info btn-xs" ng-click="mode='edit'" ng-show="mode!='edit'">
+                      <i class="fa fa-pencil"></i> Edicion
+                  </button>
+                  
+                  <button type="button" class="btn btn-primary btn-xs" ng-show="mode=='edit'" ng-click="mode=null;guardarCambios(area,area.id_area);" ng-disabled="area.area==null||area.codigo.length!=2">
+                      <i class="fa fa-save"></i> Guardar
+                  </button>
+                  
+                </td>
+                <td>
+                  <button type="button" class="btn btn-danger btn-xs" ng-click="confirmarEliminarArea(area);"><i class="fa fa-times"></i> Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>     <!-- end panel-body-->
+    </div><!--- end panel-->
+</div>
+
+<!--  
+<div class="row">
+  <div class="col-md-12">
+      <div class="page-header">
+            <div class="col-lg-3 pull-right">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-search"></i>
+                </span>
+                <input type="text" id="query" ng-model="query" class="form-control" placeholder="Buscar...">
+              </div>
+            </div>
+          <h1>
+            <span class="fa fa-tags"></span> Areas
+          </h1>
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5">
+    <div class="well">
+      <form role="form" name="formNuevaArea" class="form-horizontal" role="form" ng-submit="addArea()">
+        <fieldset>
+          <legend>Nueva Area</legend>
+          <div id="msg"></div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  Area
+                </span>
+                <input type="text" name="nueva_area" id="nueva_area" ng-model="nueva_area" class="form-control" required autofocus>
+              </div>
+            </div>
+          </div><br/>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  Codigo
+                </span>
+                <input type="text" name="nuevo_codigo" id="nuevo_codigo" ng-model="nuevo_codigo" class="form-control" maxlength="2" required>
+              </div>
+            </div>
+          </div>
+          <br/>
+          <div class="row">
+            <div class="col-lg-12">
+              <textarea id="nueva_descripcion" name="nueva_descripcion" ng-model="nueva_descripcion" placeholder="Descripción..." class="form-control"></textarea>
+            </div>
+          </div><br/>
+          <div class="form-group">
+            <div class="col-sm-10">
+                <button id="agregar" type="submit" ng-click="agregar()" ng-disabled="formNuevaArea.$invalid || nuevo_codigo.length!=2" class="btn btn-success"><i class="fa fa-plus"></i> Agregar</button>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="panel panel-default">
+      <div class="panel-body">   
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Area (Codigo)&nbsp;
+                    <a href="" ng-click="orden='nombre_area';reversa=!reversa"><i class="fa fa-sort"></i></a>
+                </th>
+                <th colspan="2">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="area in areaList | filter:query| orderBy:orden:reversa" id="{{area.id_area}}">
+                <td>{{$index+1}}</td>
+                <td>
+                    <span ng-show="mode!='edit'" style="display:block">{{area.nombre_area}}</span>
+                    <em class="text-muted" ng-show="mode!='edit'">{{area.descripcion}}</em>
+                    <div class="panel panel-primary" ng-show="mode=='edit'">
+                      <div class="panel-body">
+                          <div class="row">
+                            <div class="col-lg-12">
+                                <input type="text" class="form-control" ng-model="area.area" placeholder="Area" required>
+                            </div><br>
+                            <div class="col-lg-4">
+                                <input type="text" class="form-control" ng-model="area.codigo" placeholder="Codigo" maxlength="2" required>
+                            </div><br>
+                          </div><br>
+                          <div class="clearfix"></div>
+                          <div class="row">
+                            <div class="col-lg-12">
+                                <textarea class="form-control" ng-model="area.descripcion" placeholder="Descripcion"></textarea>
+                            </div>
+                          </div><br>
+                          <div class="row">
+                          <div class="col-md-12 text-right"> 
+                            <button type="button" class="btn btn-warning btn-xs" ng-click="mode=null"><i class="fa fa-minus-circle"></i> Cerrar
+                          </button>
+                          </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="mnss"></div>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-info btn-xs" ng-click="mode='edit'" ng-show="mode!='edit'">
+                      <i class="fa fa-pencil"></i> Edicion
+                  </button>
+                  
+                  <button type="button" class="btn btn-primary btn-xs" ng-show="mode=='edit'" ng-click="mode=null;guardarCambios(area,area.id_area);" ng-disabled="area.area==null||area.codigo.length!=2">
+                      <i class="fa fa-save"></i> Guardar
+                  </button>
+                  
+                </td>
+                <td>
+                  <button type="button" class="btn btn-danger btn-xs" ng-click="eliminarArea(area);"><i class="fa fa-times"></i> Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>     
+    </div>
+  </div><!--end col md 6-->
+<!--</div><!--end row-->

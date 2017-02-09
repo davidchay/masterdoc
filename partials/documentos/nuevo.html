@@ -1,0 +1,78 @@
+<div class="animated fadeInLeft">
+	
+	<div class="page-header">
+	    <h3><i class="fa fa-file-o"></i> Nuevo Documento</h3>
+	</div>
+	<div class="mensaje"></div>
+	<form role="form" name="formDocumentoNuevo">
+		<legend>Datos del documento</legend>
+	  	<div class="form-group">
+	    	<label for="nombre_doc">Nombre del Documento</label>
+	      	<input type="text" id="nombre_doc" ng-model="nombre_doc" name="nombre_doc" class="form-control" required autofocus>
+	  	</div>
+		<div class="row">	
+		  	<div class="col-sm-6  col-md-6">
+				<div class="form-group">
+				    <label for="tipo">Tipo de Documento</label>
+				    <select ng-model="tipo_documento" ng-options="doc.id_tipo_doc as doc.tipo_doc for doc in tipoDocumento" class="form-control" required>
+				    </select>
+				</div>
+		  	</div><!-- end col 6-->
+		  	<div class="col-sm-6  col-md-6">
+				<div class="form-group">
+					<label for="area">Area</label>
+					<select class="form-control" ng-change="ractualizarArea(ar.id_area);" ng-model="ar" ng-options="a.id_area as a.nombre_area for a in areas" required>
+			        </select> 
+				</div>
+		  	</div><!--  end col 6-->
+		</div><!-- end row-->
+	  <legend>Ruta de aprobación</legend>
+	  <div class="form-group">
+	    <label for="editor">
+		    <span ng-show="id_editor"  class="text-success">
+		    	<strong><i class="fa fa-check"></i></strong>
+		    </span>
+		    Editor
+	    </label>
+	  	<div ng-switch on="id_perfil">
+		    <div ng-switch-when="0">
+			    <suggest-editor ng-model="nombre_editor" placeholder="Seleccione al editor">
+			  	</suggest-editor>
+		    </div>
+        	<div ng-switch-default>
+              <input type="text" ng-model="nombre_editor" class="form-control" disabled="disabled">
+          	</div>
+        </div>
+	  </div>
+	  <div class="form-group">
+			<label for="revisor">
+				<span ng-show="id_revisor" class="text-success">
+	    			<strong><i class="fa fa-check"></i></strong>
+	    		</span>
+				Revisor
+			</label>
+	    	<suggest-revisor  ng-model="nombre_revisor" placeholder="seleccione al revisor">
+			</suggest-revisor>
+       </div>
+	   	<div class="form-group ">
+			    <label for="autorizador">
+			    	<span ng-show="id_autorizador" class="text-success">
+			    		<strong><i class="fa fa-check"></i></strong>
+			    	</span>
+			    	Autorizador
+			    </label>
+			    <suggest-autorizador  ng-model="nombre_autorizador" placeholder="seleccione al autorizador" >
+	       		</suggest-autorizador>
+		</div>	
+		
+		
+	  <br>
+	  <div class="mensaje"></div>
+	  <div ng-show="!formDocumentoNuevo.$invalid" class="text-center">
+	  		<button  id="guardar" type="button" ng-click="validar()" ng-disabled="formDocumentoNuevo.$invalid || id_editor.length<1 || id_revisor.length<1 || id_autorizador.length<1 " class="btn btn-primary"><i class="fa fa-file-text-o"></i> Crear Documento</button>
+	  		<button  id="otroDoc" type="button" ng-click="otroDoc()" class="btn btn-success hidden"><i class="fa fa-file-o"></i> Crear otro documento</button>
+	  </div>	  		
+
+	</form>	
+	
+</div>

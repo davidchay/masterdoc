@@ -1,0 +1,82 @@
+<div id="mensaje-revisor"></div>
+<div class="navbar navbar-default animated fadeIn" role="navigation">
+  <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand"><img src="img/logoVisor.png" alt="MASTERedit"></a>
+      </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <span class="navbar-right">
+          <button type="button" class="btn btn-primary navbar-btn btn-sm" ng-click="$state.go('escritorio.documentos.aprobados');"><i class="fa fa-arrow-left"></i> Regresar </button>
+          <span ng-if="usuario.id_perfil==0">
+            <button type="button" class="btn btn-primary navbar-btn btn-sm" ng-click="crearPDF()" ><i class="fa fa-file-pdf-o"></i> PDF</button>
+          </span>
+          <span ng-if="usuario.id_perfil==0 || id_creador==usuario.id_usuario">
+            <button type="button" class="btn btn-primary navbar-btn btn-sm" ng-click="confirmRevision();"><i class="fa fa-files-o"></i> Hacer nueva revisión</button>
+          </span>
+          <span ng-if="usuario.id_perfil==0 || id_creador==usuario.id_usuario">
+            <button type="button" class="btn btn-danger navbar-btn btn-sm" ng-click="confirmObsoleto()"><i class="fa fa-file-archive-o"></i> Archivo Obsoleto</button>
+          </span>  
+        </span>
+      </div>
+  </div>   
+</div>
+<div class="container ineditable animated fadeIn">
+  <div class="row text-center">
+    <div class="col-md-12">
+      <table class="table table-bordered text-center separator-top">
+        <tbody>
+          <tr>
+              <td rowspan="2">
+                <br>
+                <img width="90"src="img/logo-procesa.jpg" alt="Procesa">
+              </td>
+              <td>
+                <h4>Procesamiento Especializado de Alimentos, S.A.P.I. de C.V.</h4>
+              </td>
+              <td>
+                <h5 >{{fecha}}</h5>
+              </td>
+            </tr>
+            <tr>
+              <td >
+                  <h4>{{nombre_doc}}</h4>
+              </td>
+              <td>
+                 <h5>{{codigo}}</h5>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+      <br>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td><strong>Editor</strong><h4>{{creador}}</h4><span>{{creador_puesto}}</span></td>
+            <td><strong>Revisor</strong><h4>{{revisor}}</h4><span>{{revisor_puesto}}</span></td>
+            <td><strong>Autorizador</strong><h4>{{autorizador}}</h4><span>{{autorizador_puesto}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end col 12-->
+  </div><!-- end row-->
+</div>
+<div class="container bs-docs-container ineditable">     
+  <div class="row">
+    <div class="col-md-12">
+    <div id="mensaje"></div>
+      <div class="bs-docs-section clearfix">
+        <div ng-bind-html="html"></div>
+        <p ng-show="html" class="text-right text-muted"><small>NOTA: Si el documento que carga no es el correcto, por favor vacie la caché de su navegador y vuelva a entrar a esta sección.</small></p>
+      </div>
+      <hr class="separator-top">
+    </div>
+  </div>
+</div>
+
+

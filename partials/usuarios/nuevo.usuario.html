@@ -1,0 +1,112 @@
+<div class="animated fadeInLeft">
+      <div class="page-header">
+          <h3>
+            <i class="fa fa-plus"></i> Nuevo usuario
+          </h3>
+      </div>
+      <div class="mensaje"></div>
+      <form role="form" name="formPerfil" class="" role="form">
+          <fieldset>
+          <div class="row">
+            <div class="col-md-6">
+                <legend>Datos personales</legend>
+                <div class="form-group">
+                    <label for="nombre" class="control-label">* Nombre(s)</label>
+                    <input type="text" id="nombre" ng-model="nombre" name="nombre" class="form-control" required autofocus >
+                    
+                </div>
+                
+                <div class="form-group">
+                    <label for="apellidos" class="control-label">* Apellido(s)</label>
+                    <input type="text" id="apellidos" ng-model="apellidos" name="apellidos" class="form-control" required>
+                    
+                </div>
+                <div class="form-group">
+                  <label for="direccion" class="control-label">Dirección</label>
+                  <textarea id="direccion" name="direccion" ng-model="direccion" class="form-control"></textarea>
+                  
+                </div>
+                <div class="form-group">
+                    <label for="email" class="control-label">* Email</label>
+                    <input type="email" id="email" ng-model="email" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono" class="control-label">Teléfono</label>
+                    <input type="text" id="telefono" ng-model="telefono" name="telefono" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="celular" class="control-label">Celular</label>
+                    <input type="text" id="celular" ng-model="celular" name="celular" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="area" class="control-label">* Area</label>
+                  <select class="form-control" ng-change="actualizarArea(ar.id_area);" ng-model="ar" ng-options="a.nombre_area for a in areas" required>
+                    <option selected="selected">ar</option>
+                  </select> 
+                </div>
+                <div class="form-group">
+                    <label for="puesto" class="control-label">* Puesto</label>
+                    <select class="form-control" ng-change="actualizarPuesto(pu.id_puesto);" ng-model="pu" ng-options="p.nombre_puesto for p in puestos" required>
+                      <option selected="selected">pu</option>
+                    </select> 
+                  
+                </div>
+                
+            </div><!-- end col-sm-6-->
+            <div class="col-md-6">
+              <legend>Cuenta</legend>
+              <div class="form-group">
+                <label for="perfil" class="control-label">* Perfil</label>
+                <select class="form-control" ng-change="actualizarPerfil(permiso.id_perfil);" ng-model="permiso" ng-options="p.perfil for p in perfiles" required>
+                    <option selected="selected">permiso</option>
+                </select> 
+              </div>
+              <div class="form-group">
+                  <label for="user" class="control-label">* Usuario</label>
+                  <input type="text" id="user" ng-model="user" name="user" class="form-control" required>
+                    <div id="disponible"></div>
+                    <p class="text-muted"><i class="fa fa-exclamation-triangle"></i> Tome encuenta que el nombre de usuario no podrá cambiarse.</p>
+              </div>
+              
+              <legend>Contraseña</legend>
+              <div ng-show="newPass2 != newPass || formMiPerfil.newPass.$error.minlength">
+                <div class="alert alert-warning">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <span ng-show="newPass2!=newPass">
+                    Las <strong>contraseñas</strong> no coinciden.
+                  </span><br>
+                  <span ng-show="formPerfil.newPass.$error.minlength">
+                    La <strong>contraseña</strong> debe tener 6 caracteres como minimo.
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                  <label for="newPass" class="control-label">* Contraseña</label>
+                  <input type="password" id="newPass" ng-model="newPass" name="newPass" ng-minlength="6" class="form-control" required>
+              </div>
+              <div class="form-group">
+                  <label for="newPass2" class="control-label">* Vuelva a escribir la contraseña</label>
+                  <input type="password" id="newPass2" ng-model="newPass2" name="newPass2" class="form-control" required>
+              </div>
+
+            </div><!-- col sm-6-->
+          </div><!-- end row -->  
+          <div class="row">
+              <div class="col-md-12">
+                <div class="form-group text-right">
+                    <button id="guardar" type="button" ng-click="guardar()" ng-disabled="formPerfil.$invalid || newPass2!=newPass " class="btn btn-primary " ng-show="!reset"><i class="fa fa-floppy-o"></i> Guardar</button>
+                
+                    <button id="nuevo" type="button" ng-click="nuevo()" class="btn btn-success" ng-show="reset"><i class="fa fa-plus"></i> Agregar a otro usuario</button>
+                </div>
+              </div>
+          </div>
+            
+            
+
+          </fieldset>
+        </form>	
+        <div class="mensaje"></div>
+
+
+</div>
+

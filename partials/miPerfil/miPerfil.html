@@ -1,0 +1,308 @@
+<div class="col-sm-3 col-md-2 sidebar animated fadeIn">
+    <div class="page-header text-center">
+      <h3><i class="fa fa-user"></i> Mi perfil</h3>
+    </div>
+    <div class="text-center">
+        <figure>
+          <img src="img/perfiles/P-{{id_perfil}}.png">
+          <figcaption>
+            <h3>{{user}}</h3>
+            {{nombre}} {{apellidos}}<br>
+            <small class="text-primary">{{permiso.perfil}}</small>
+          </figcaption>
+        </figure>
+    </div>
+</div>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main animated fadeInLeft">
+      <div class="mensaje"></div>
+              <form role="form" name="formPerfil" class="form-horizontal" role="form">
+                <fieldset>
+                  <legend>Datos personales</legend>
+                  <div class="form-group">
+                      <label for="nombre" class="col-sm-2 control-label">* Nombre(s)</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="nombre" ng-model="nombre" name="nombre" class="form-control" required autofocus >
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="apellidos" class="col-sm-2 control-label">* Apellido(s)</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="apellidos" ng-model="apellidos" name="apellidos" class="form-control" required>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="direccion" class="col-sm-2 control-label">Dirección</label>
+                    <div class="col-sm-10">
+                      <textarea id="direccion" name="direccion" ng-model="direccion" class="form-control"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="email" class="col-sm-2 control-label">* Email</label>
+                      <div class="col-sm-10">
+                        <input type="email" id="email" ng-model="email" name="email" class="form-control" required>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="telefono" class="col-sm-2 control-label">Teléfono</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="telefono" ng-model="telefono" name="telefono" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="celular" class="col-sm-2 control-label">Celular</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="celular" ng-model="celular" name="celular" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="area" class="col-sm-2 control-label">* Area</label>
+                    <div class="col-sm-10">
+                        <div ng-switch on="permiso.perfil">
+                          <div ng-switch-when="Administrador">
+                            <select class="form-control" ng-change="actualizarArea(ar.id_area);" ng-model="ar" ng-options="a.nombre_area for a in areas" required>
+                                <option selected="selected">ar</option>
+                            </select> 
+                          </div>
+                          <div ng-switch-default>
+                              <input type="text" ng-model="
+                              ar.nombre_area" class="form-control" disabled="disabled">
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="puesto" class="col-sm-2 control-label">* Puesto</label>
+                      <div class="col-sm-10">
+                        <div ng-switch on="permiso.perfil">
+                          <div ng-switch-when="Administrador">
+                            <select class="form-control" ng-change="actualizarPuesto(pu.id_puesto);" ng-model="pu" ng-options="p.nombre_puesto for p in puestos" required>
+                              <option selected="selected">pu</option>
+                            </select> 
+                          </div>
+                          <div ng-switch-default>
+                              <input type="text" ng-model="pu.nombre_puesto" class="form-control" disabled="disabled">
+                          </div>
+                        </div>
+                      </div>  
+                  </div>
+                  
+                  <legend>Cuenta</legend>
+                  <div class="form-group">
+                    <label for="perfil" class="col-sm-2 control-label">* Perfil</label>
+                    <div class="col-sm-10">
+                      <div ng-switch on="permiso.perfil">
+                          <div ng-switch-when="Administrador">
+                              <select class="form-control" ng-change="actualizarPerfil(permiso.id_perfil);" ng-model="permiso" ng-options="p.perfil for p in perfiles">
+                                <option selected="selected">permiso</option>
+                              </select>
+                          </div>
+                          <div ng-switch-default>
+                              <input type="text" ng-model="permiso.perfil" class="form-control" disabled="disabled">
+                          </div>
+                      </div>
+                    </div><!-- end col sm 10 -->  
+                  </div>
+                  <div class="form-group">
+                      <label for="user" class="col-sm-2 control-label">* Usuario</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="user" ng-model="user" name="user" class="form-control" disabled>
+                      </div>
+                  </div>
+                  
+                  <legend>Cambiar Contraseña</legend>
+                  
+                  <div class="form-group">
+                      <label for="pass" class="col-sm-2 control-label">Contraseña Actual</label>
+                      <div class="col-sm-10">
+                        <input type="password" id="pass" ng-model="pass" name="pass" class="form-control">
+                      </div>
+                  </div>
+                  <div ng-show="newPass2 != newPass || formMiPerfil.newPass.$error.minlength">
+                    <div class="alert alert-warning">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      <span ng-show="newPass2!=newPass">
+                        Las <strong>contraseñas</strong> no coinciden.
+                      </span><br>
+                      <span ng-show="formPerfil.newPass.$error.minlength">
+                        La <strong>contraseña</strong> debe tener 6 caracteres como minimo.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="newPass" class="col-sm-2 control-label">Nueva contraseña</label>
+                      <div class="col-sm-10">
+                        <input type="password" id="newPass" ng-model="newPass" name="newPass" ng-minlength="6" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="newPass2" class="col-sm-2 control-label">Vuelva a escribir la nueva contraseña</label>
+                      <div class="col-sm-10">
+                        <input type="password" id="newPass2" ng-model="newPass2" name="newPass2" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button id="guardar" type="button" ng-click="guardarCambios()" ng-disabled="formPerfil.$invalid || newPass2!=newPass " class="btn btn-primary "><i class="fa fa-floppy-o"></i> Guardar Cambios</button>
+                    </div>
+                  </div>
+                </fieldset>
+              </form> 
+              <div class="mensaje"></div>
+</div>
+
+<!--
+<div class="row">
+  <div class="col-md-12">
+      <div class="page-header">
+          <h1><span class="fa fa-user"></span> Mi Perfil</h1>
+      </div>
+  </div>
+</div>
+<div class="row margin-top">
+  <div class="col-md-2 text-center">
+    <figure>
+      <img src="img/perfiles/{{id_perfil}}.png">
+      <figcaption>
+        <h3>{{user}}</h3>
+        {{nombre}} {{apellidos}}<br>
+        <small class="text-primary">{{permiso.perfil}}</small>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="col-md-10">
+        <div class="well">
+            <div class="page-header">
+                <h3>
+                  Mi información
+                </h3>
+            </div>
+              <div class="mensaje"></div>
+              <form role="form" name="formPerfil" class="form-horizontal" role="form">
+                <fieldset>
+                  <legend>Datos personales</legend>
+                  <div class="form-group">
+                      <label for="nombre" class="col-sm-2 control-label">* Nombre(s)</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="nombre" ng-model="nombre" name="nombre" class="form-control" required autofocus >
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="apellidos" class="col-sm-2 control-label">* Apellido(s)</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="apellidos" ng-model="apellidos" name="apellidos" class="form-control" required>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="direccion" class="col-sm-2 control-label">Dirección</label>
+                    <div class="col-sm-10">
+                      <textarea id="direccion" name="direccion" ng-model="direccion" class="form-control"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="email" class="col-sm-2 control-label">* Email</label>
+                      <div class="col-sm-10">
+                        <input type="email" id="email" ng-model="email" name="email" class="form-control" required>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="telefono" class="col-sm-2 control-label">Teléfono</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="telefono" ng-model="telefono" name="telefono" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="celular" class="col-sm-2 control-label">Celular</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="celular" ng-model="celular" name="celular" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="area" class="col-sm-2 control-label">Area</label>
+                    <div class="col-sm-10">
+                       <select class="form-control" ng-change="actualizarArea(ar.id_area);" ng-model="ar" ng-options="a.nombre_area for a in areas">
+                          <option selected="selected">ar</option>
+                        </select> 
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="puesto" class="col-sm-2 control-label">Puesto</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="puesto" ng-model="puesto" name="puesto" class="form-control">
+                      </div>
+                  </div>
+                  
+                  <legend>Cuenta</legend>
+                  <div class="form-group">
+                      <label for="perfil" class="col-sm-2 control-label">* Perfil</label>
+                      <div class="col-sm-10">
+                        <input type="text" ng-model="permiso.perfil" class="form-control" disabled="disabled" ng-show="permiso.id_perfil!=0">
+                        <select class="form-control" ng-change="actualizarPerfil(permiso.id_perfil);" ng-model="permiso" ng-options="p.perfil for p in perfiles" ng-show="{{permiso.id_perfil>0}}" >
+                          <option selected="selected">permiso</option>
+                        </select> 
+                        <div ng-switch on="permiso.perfil">
+                            <div ng-switch-when="Administrador">
+                                <select class="form-control" ng-change="actualizarPerfil(permiso.id_perfil);" ng-model="permiso" ng-options="p.perfil for p in perfiles">
+                                  <option selected="selected">permiso</option>
+                                </select>
+                            </div>
+                            <div ng-switch-default>
+                                <input type="text" ng-model="permiso.perfil" class="form-control" disabled="disabled">
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="user" class="col-sm-2 control-label">* Usuario</label>
+                      <div class="col-sm-10">
+                        <input type="text" id="user" ng-model="user" name="user" class="form-control" disabled>
+                      </div>
+                  </div>
+
+                  <legend>Cambiar Contraseña</legend>
+                  
+                  <div class="form-group">
+                      <label for="pass" class="col-sm-2 control-label">Contraseña Actual</label>
+                      <div class="col-sm-10">
+                        <input type="password" id="pass" ng-model="pass" name="pass" class="form-control">
+                      </div>
+                  </div>
+                  <div ng-show="newPass2 != newPass || formMiPerfil.newPass.$error.minlength">
+                    <div class="alert alert-warning">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      <span ng-show="newPass2!=newPass">
+                        Las <strong>contraseñas</strong> no coinciden.
+                      </span><br>
+                      <span ng-show="formPerfil.newPass.$error.minlength">
+                        La <strong>contraseña</strong> debe tener 6 caracteres como minimo.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="newPass" class="col-sm-2 control-label">Nueva contraseña</label>
+                      <div class="col-sm-10">
+                        <input type="password" id="newPass" ng-model="newPass" name="newPass" ng-minlength="6" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="newPass2" class="col-sm-2 control-label">Vuelva a escribir la nueva contraseña</label>
+                      <div class="col-sm-10">
+                        <input type="password" id="newPass2" ng-model="newPass2" name="newPass2" class="form-control">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-10 col-sm-offset-2">
+                        <button id="guardar" type="button" ng-click="guardarCambios()" ng-disabled="formPerfil.$invalid || newPass2!=newPass " class="btn btn-primary ">Guardar Cambios</button>
+                    </div>
+                  </div>
+                </fieldset>
+              </form> 
+              <div class="mensaje"></div>
+        </div><!-- end well -->
+<!--
+
+  
+  </div><!--end col md 10-->
+  <!--
+</div><!--end row-->

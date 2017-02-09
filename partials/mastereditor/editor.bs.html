@@ -1,0 +1,140 @@
+<div id="mensaje-editor" class=""></div>
+<!-- navegacion -->
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+ 	<div class="container-fluid">
+	  	<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	        	<span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		    </button>
+	        <a class="navbar-brand"><img src="img/logoEditor.png" alt="MASTERedit"></a>
+		 </div>
+	    <div class="collapse navbar-collapse navbar-ex1-collapse">
+	          	<!--Menu principal-->
+	          	<span class="navbar-right">
+	          		<button type="button" class="btn btn-info navbar-btn btn-sm" ng-click="$state.go('escritorio.documentos.borrador');"><i class="fa fa-arrow-left"></i> Regresar</button>
+	          	</span>
+	    </div><!-- /.navbar-collapse -->
+	    
+	</div>   
+</div>
+<!-- finaliza navegacion -->
+<div class="container main">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<table class="table table-bordered text-center separator-top">
+				<tbody>
+					<tr>
+				    	<td rowspan="2">
+				    	<br>
+				    		<img width="90"src="img/logo-procesa.jpg" alt="Procesa">
+				    	</td>
+				       	<td>
+				             <h4>Procesamiento Especializado de Alimentos, S.A.P.I. de C.V.</h4>
+				       	</td>
+				       	<td>
+				          <h5 >{{fecha}}</h5>
+				       	</td>
+				    </tr>
+				   	<tr>
+				    	<td >
+				      		<h4>{{nombre_doc}}</h4>
+				     	</td>
+				      	<td>
+				      		<h5>{{codigo}}</h5>
+				      	</td>
+				   	</tr>
+				</tbody>
+			</table>
+			<br>
+			<table class="table table-bordered text-center">
+				<tbody>
+					<tr>
+			            <td><strong>Editor</strong><h4>{{creador}}</h4><span>{{creador_puesto}}</span></td>
+			            <td><strong>Revisor</strong><h4>{{revisor}}</h4><span>{{revisor_puesto}}</span></td>
+			            <td><strong>Autorizador</strong><h4>{{autorizador}}</h4><span>{{autorizador_puesto}}</span></td>
+			          </tr>
+				</tbody>
+			</table>
+			<p class="text-right">
+				<strong>Tipo de Documento: </strong>
+				{{tipo_documento}}<br/>
+				<strong>Fecha de Creación: </strong>
+				{{fecha_creacion}}<br/>
+				<strong ng-show="ultima_modificacion">Ultima modificación: </strong>
+				{{ultima_modificacion}}
+			</p>
+		<hr>
+		</div><!-- end col 8-->
+		</div><!-- end row -->
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div ng-bind-html="html"></div>
+				<p ng-show="html" class="text-right text-muted"><small>NOTA: Si el documento que carga no es el correcto, por favor vacie la caché de su navegador y vuelva a entrar a esta sección.</small></p>
+				<hr>
+				<div ng-show="html">
+					<div class="page-header">
+						<h2><i class="fa fa-comments"></i> Comentarios</h2>
+					</div>
+					<blockquote ng-show="comentarioRevisor">
+	      				<p>{{comentarioRevisor}}</p>
+	      				<footer><cite>{{revisor}} (Revisor)</cite></footer>
+	    			</blockquote>
+					<blockquote ng-show="comentarioAutorizador" class="pull-right">
+			          <p>{{comentarioAutorizador}}</p>
+			          <footer><cite>{{autorizador}} (Autorizador)</cite></footer>
+			        </blockquote>
+					<div class="clearfix"></div>
+					<hr/>
+				</div>
+        	</div>
+		</div>
+		<div class="row">	
+			<div class="col-md-6 col-md-offset-3 clearfix">
+				<h1 class="text-center"><i class="fa fa-cloud-upload"></i> Subir archivo</h1>
+				<div class="well well-lg text-center">
+        			<div ng-show="!uploader.queue.length">
+        				<p class="lead"><i class="fa fa-file-pdf-o"></i> Seleccione el Archivo PDF</p>
+        				<label class="fileContainer btn btn-info">
+    						{{codigo}}.pdf
+    						<input ng-file-select type="file"  accept="application/pdf" />
+						</label>
+        			</div>
+        			<div ngshow="uploader.queue.length">
+        				<div ng-repeat="item in uploader.queue">
+	        				<dl class="text-left">
+					  			<dt>{{ item.file.name }}</dt>
+					  			<dd>{{ item.file.size/1024/1024|number:2 }} Mb</dd>
+							</dl>
+							<div class="progress progress-striped active">
+							  <div class="progress-bar" ng-style="{ 'width': item.progress + '%' }"></div>
+							</div>
+							<div>
+							<div ng-show="item.file.name!=codigo+'.pdf'" class="alert alert-dismissable alert-warning text-left">
+						  	<button type="button" class="close" data-dismiss="alert">×</button>
+						  		<h4>¡Error al seleccionar el archivo!</h4>
+						  		<p>El archivo debe tener el nombre de <strong>{{codigo}}.pdf</strong>.</p>
+							</div>
+							<button id="btnsc" ng-show="item.file.name==codigo+'.pdf'" class="btn btn-primary" ng-click="item.upload();toRevision();" ng-disabled="item.isReady || item.isUploading || item.isSuccess"><i class="fa fa-search"></i> Enviar a Revisión</button>
+		                    <button id="btnrm" class="btn btn-danger" ng-click="item.remove()"><i class="fa fa-trash-o"></i> Eliminar</button>
+	                    </div>
+                </div>
+        			</div>
+				</div><!-- end well-->
+			</div>
+
+       
+
+
+
+
+
+
+		</div><!--end row-->
+</div><!-- finaliza container-->
+			
+
+
+

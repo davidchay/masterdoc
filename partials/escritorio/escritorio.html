@@ -1,0 +1,50 @@
+<!-- navegacion -->
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation animated fadeIn">
+	    <div class="container-fluid">
+	          <!-- Brand and toggle get grouped for better mobile display -->
+	         <div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		        	<span class="sr-only">Toggle navigation</span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		        </button>
+	            <a class="navbar-brand" href="#"><img src="img/logo_2.png" alt="MASTERdoc"></a>
+	          </div>
+
+	          <div class="collapse navbar-collapse navbar-ex1-collapse">
+	          	<!--Menu principal-->
+	          	<ul class="nav navbar-nav side-nav">
+	            	<li ng-repeat="menu in usuario.menuPrincipal" ng-class="{ active: $state.includes('{{menu.url}}') }">
+		                <a  ui-sref="{{menu.url}}" >{{menu.opcion}}</a>
+		            </li>
+	            </ul>
+	          	<!-- Saludo y usuario -->
+	            <ul class="nav navbar-nav navbar-right">
+	              <li>
+	                <p class="navbar-text ">Hola,</p>
+	              </li>
+	              <li class="dropdown">
+	                <a href="" class="dropdown-toggle" data-toggle="dropdown">{{usuario.user}} <b class="caret"></b></a>
+	                <ul class="dropdown-menu">
+	                  <li><a href="#/mi-perfil/">Editar perfil</a></li>
+	                  <li><a href="logout.php">Salir</a></li>
+	                </ul>
+	              </li>
+	            </ul>
+	          </div><!-- /.navbar-collapse -->
+	    </div>   
+	</div>
+		<!-- finaliza navegacion -->
+		<div class="container-fluid">
+			<div class="row">
+				<div ui-view class="animate"></div>
+			</div>
+		</div>
+			
+			        
+			</div><!-- finaliza container-->
+			
+
+
+

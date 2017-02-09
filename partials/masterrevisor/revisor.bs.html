@@ -1,0 +1,97 @@
+<div id="mensaje-revisor"></div>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand"><img src="img/logoReview.png" alt="MASTERrevisor"></a>
+      </div>
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <span class="navbar-left">
+          <button type="button" class="btn btn-warning navbar-btn btn-sm" ng-click="confirmarToEdicion()"><i class="fa fa-pencil"></i> Regresar a edición</button>
+          <button type="button" class="btn btn-success navbar-btn btn-sm" ng-click="confirmarToAprobacion()" ><i class="fa fa-check"></i> Enviar a aprobación</button>
+        </span>
+        <span class="navbar-right">
+          <button type="button" class="btn btn-info navbar-btn btn-xs" ng-click="guardar()">Guardar</button>
+
+          <button type="button" class="btn btn-info navbar-btn btn-xs" ng-click="guardarSalir()">Guardar y Salir</button>
+                
+          <button type="button" class="btn btn-danger navbar-btn btn-xs" ng-click="salirNoGuardar()">Salir sin Guardar</button>
+        </span>
+      </div>
+  </div>   
+</div>
+<div class="container main">
+  <div class="row text-center">
+    <div class="col-md-12 ">
+      <table class="table table-bordered text-center separator-top">
+        <tbody>
+          <tr>
+              <td rowspan="2">
+                <br>
+                <img width="90"src="img/logo-procesa.jpg" alt="Procesa">
+              </td>
+              <td>
+                <h4>Procesamiento Especializado de Alimentos, S.A.P.I. de C.V.</h4>
+              </td>
+              <td>
+                <h5 >{{fecha}}</h5>
+              </td>
+            </tr>
+            <tr>
+              <td >
+                  <h4>{{nombre_doc}}</h4>
+              </td>
+              <td>
+                 <h5>{{codigo}}</h5>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+      <br>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td><strong>Editor</strong><h4>{{creador}}</h4><span>{{creador_puesto}}</span></td>
+            <td><strong>Revisor</strong><h4>{{revisor}}</h4><span>{{revisor_puesto}}</span></td>
+            <td><strong>Autorizador</strong><h4>{{autorizador}}</h4><span>{{autorizador_puesto}}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div><!-- end col 12-->
+  </div><!-- end row-->
+</div>
+<div class="container bs-docs-container">     
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="bs-docs-section clearfix">
+        <div ng-bind-html="html"></div>
+        <p ng-show="html" class="text-right text-muted"><small>NOTA: Si el documento que carga no es el correcto, por favor vacie la caché de su navegador y vuelva a entrar a esta sección.</small></p>
+        <hr>
+        <div class="page-header">
+          <h2><i class="fa fa-comments"></i> Comentarios</h2>
+        </div>
+        <blockquote ng-show="comentarioAutorizador">
+          <p>{{comentarioAutorizador}}</p>
+          <footer><cite>{{autorizador}} (Autorizador)</cite></footer>
+        </blockquote>
+        <br/>
+        <div class="panel panel-primary">
+          <div class="panel-heading"> 
+            <h4><i class="fa fa-comment"></i> Agrega un cometario</h4>
+          </div>
+          <div class="panel-body">
+            <textarea ng-model="comentarioRevisor" class="form-control" rows="6" placeholder="Escribe tus comentarios"></textarea>
+            <br/>
+            <em class="text-muted">&#8212; {{revisor}} (Revisor)</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

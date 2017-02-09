@@ -1,0 +1,123 @@
+<div class="jumbotron animated fadeIn">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-9 ">
+			<div id="userCard">
+		  		<img src="img/perfiles/P-{{usuario.id_perfil}}.png">
+	  			<h2>{{usuario.nombre}} {{usuario.apellidos}} <br><small>{{usuario.perfil}}</small></h2>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div id="fechaHoy">
+				<small class="text-muted">
+					<i class="fa fa-calendar"></i> {{hoy}}
+				</small>
+			</div>
+			<a ui-sref="escritorio.documentos.borrador">
+				<div class="panel panel-{{claseTareas}}">
+	              <div class="panel-heading">
+	                <div class="row">
+	                  <div class="col-xs-6">
+	                    <i class="fa fa-paper-plane-o fa-5x"></i>
+	                  </div>
+	                  <div class="col-xs-6 text-right">
+	                    <p class="announcement-heading">{{tareas}}</p>
+	                  </div>
+	                  <div class="col-xs-12 text-right">
+	                    <p class="announcement-text">Tareas Pendientes</p>	                  	
+	                  </div>
+
+	                </div>
+	              </div>
+	            </div>
+            </a>
+		</div>
+	</div>
+</div>
+
+
+
+		
+
+	
+</div><!-- end jimbotrom -->
+
+<div class="container animated fadeIn">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header">
+				<h1>Resumen de Actividad</h1>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-primary">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="fa fa-star fa-5x"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading">{{participacion}}</p>
+                  </div>
+                  <div class="col-xs-12 text-right">
+                    <p class="announcement-text"><small>Mi participación</small></p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-primary">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="fa fa-file fa-5x"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading">{{autorizados}}</p>
+                  </div>
+                  <div class="col-xs-12 text-right">
+                    <p class="announcement-text"><small>Documentos aprobados</small></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+ 		</div>
+		<div class="col-md-3">
+			<div class="panel panel-primary">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="fa fa-eraser fa-5x"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading">{{borrador}}</p>
+                  </div>
+                  <div class="col-xs-12 text-right">
+                    <p class="announcement-text"><small>Documentos en borrador</small></p>
+	              </div>
+                </div>
+              </div>
+            </div>
+		</div>
+		<div class="col-md-3">
+			<div class="panel panel-primary">
+              <div class="panel-heading">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <i class="fa fa fa-archive fa-5x"></i>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <p class="announcement-heading">{{obsoletos}}</p>
+                  </div>
+                  <div class="col-xs-12 text-right">
+                    <p class="announcement-text"><small>Documentos obsoletos</small></p>
+	              </div>
+
+                </div>
+              </div>
+            </div>
+		</div>
+	</div>
+</div>

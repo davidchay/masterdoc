@@ -1,0 +1,123 @@
+<div class="panel panel-default animated fadeInLeft">
+  <div class="panel-body" ng-controller="borradoresCtrl">
+  	<div class="page-header">
+  		<h3>
+    		<i class="fa fa-eraser"></i> Documentos en Borrador
+  	 	<div class="col-sm-4 pull-right">
+  	 		<div class="input-group">
+  			  	<span class="input-group-addon">
+  			  		<i class="fa fa-search"></i>
+  			  	</span>
+  	 			<input type="text" ng-model="query"  class="mg- form-control" id="searchBorrador" placeholder="Burcar documento...">
+  	 		</div>
+  		 </div>
+    	</h3>
+	</div>
+	<button ng-show="usuario.id_perfil==0" input="button" class="btn  btn-link btn-xs" ng-click="crearPDF()"><i class="fa fa-file-pdf-o"></i> Crear reporte</button>
+	
+	<div class="mensaje"></div>
+	<table class="table table-hover no-margin-bootom">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Nombre
+					<a ng-click="orden='nombre_documento';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				<th>Codigo
+					<a ng-click="orden='codigo';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				<th>Fecha
+					<a ng-click="orden='fecha';reversa=!reversa"><i class="fa fa-sort"></i></a>
+				</th>
+				<th colspan="3" class="text-center">Acción</th>
+			</tr>
+		</thead>
+		<tbody >
+		<tr id="{{borrador.id_documento}}" ng-repeat="borrador in borradoresList | filter:query| orderBy:orden:reversa" id="borrador.id_documento">
+				<td >{{$index+1}}</td>
+				<td style="position:relative">
+					<div ng-if="usuario.id_perfil>0">
+						<span title="{{borrador.nombre_documento}}">
+						   {{borrador.nombre_documento | characters:85:false}}
+						</span>
+					</div>	
+					<div ng-if="usuario.id_perfil==0">	
+						<span ng-dblclick="edit=true;" title="{{borrador.nombre_documento}}" ng-show="!edit">{{borrador.nombre_documento | characters:85:false}}
+						</span>
+						<span ng-show="edit==true"  style="position:absolute;right:10px;top:12px;">
+						<button class="btn btn-link btn-xs pull-right" ng-click="edit=cancelarCambiosNombre(borrador.id_documento+'-nombre',$index);"><i class="fa fa-times text-danger"></i></button>
+						<button class="btn btn-link btn-xs pull-right" ng-click="edit=guardarCambiosNombre(borrador.id_documento,borrador.id_documento+'-nombre',$index);"><i class="fa fa-check text-success"></i></button>
+						</span>
+						<input id="{{borrador.id_documento}}-nombre" ng-show="edit==true" type="text" class="form-control" value="{{borrador.nombre_documento}}" ui-keydown="{'enter':'edit=guardarCambiosNombre(borrador.id_documento,borrador.id_documento+\'-nombre\',$index)','esc':'edit=cancelarCambiosNombre(borrador.id_documento+\'-nombre\',$index)'}"/>
+					</div>
+					
+				</td>
+				<td >{{borrador.codigo}}</td>
+				<td >{{borrador.fecha}}</td>
+				<td class="text-center">
+					<div ng-switch on="borrador.estado">
+						<div ng-switch-when="Edición">
+			       			<div ng-if="usuario.id_usuario==borrador.id_creador">
+			       				<button type="button" ng-click="transitionTo(borrador.tabla,{idDocumento:borrador.id_documento},'edicion')" class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i> Editar</button>
+			       			</div>
+			       			<div ng-if="usuario.id_usuario!=borrador.id_creador">
+			       				<button type="button" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-pencil"></i> Editar</button>
+			       			</div>
+			           	</div>
+			           	<div ng-switch-when="Revisión">
+			           		<div ng-if="usuario.id_usuario==borrador.id_revisor">
+			       				<button type="button" ng-click="transitionTo(borrador.tabla,{idDocumento:borrador.id_documento},'revision')" class="btn btn-primary btn-xs"><i class="fa fa-search"></i> Revisar</button>
+			       			</div>
+			       			<div ng-if="usuario.id_usuario!=borrador.id_revisor">
+			       				<button type="button" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-search"></i> Revisar</button>
+			       			</div>
+			           	</div>
+			           	<div ng-switch-when="Aprobación">
+			           		<div ng-if="usuario.id_usuario==borrador.id_autorizador">
+			       				<button type="button" ng-click="transitionTo(borrador.tabla,{idDocumento:borrador.id_documento},'aprobacion')" class="btn btn-success btn-xs"><i class="fa fa-check"></i> Aprobar</button>
+			       			</div>
+			       			<div ng-if="usuario.id_usuario!=borrador.id_autorizador">
+			       				<button type="button" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-check"></i> Aprobar</button>
+			       			</div>
+			           	</div>
+				        <div ng-switch-default>
+				        	<button type="button" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-pencil"></i> Editar</button>
+				        </div>
+				    </div>
+				</td>
+				<td class="text-center">
+					<button id="detalles" type="button" class="btn btn-info btn-xs" ng-click="verDetalles(borrador.id_documento,borrador.tabla)"><i class="fa fa-info-circle"></i> Detalles</button>
+				</td>
+				<td class="text-center">
+					<div ng-switch on="borrador.estado">
+			       		<div ng-switch-when="Edición">
+			       			<div ng-if="usuario.id_usuario==borrador.id_creador || usuario.id_perfil==0">
+								<button id="eliminar" type="button" class="btn btn-danger btn-xs" ng-click="confirmaEliminar(borrador.id_documento,borrador.nombre_documento,borrador.tabla,borrador.id_creador)"><i class="fa fa-times"></i> Eliminar</button>
+							</div>
+							<div ng-if="usuario.id_usuario!=borrador.id_creador && usuario.id_perfil>0">
+								<button id="eliminar" type="button" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-times"></i> Eliminar</button>
+							</div>
+
+			           	</div>
+				        <div ng-switch-default>
+							<div ng-if="usuario.id_perfil==0">
+								<button id="eliminar" type="button" class="btn btn-danger btn-xs" ng-click="confirmaEliminar(borrador.id_documento,borrador.nombre_documento,borrador.tabla,borrador.id_creador)"><i class="fa fa-times"></i> Eliminar</button>
+							</div>	
+							<div ng-if="usuario.id_perfil>0">
+								<button type="button" class="btn btn-default btn-xs" disabled="disabled"><i class="fa fa-times"></i> Eliminar</button>
+							</div>	
+			       	    </div>
+				    </div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div ng-show="borradoresList==0" class="text-center">
+		<p class="lead">
+			No se encontró ningun documento en borrador.
+		</p>
+	</div>
+  </div><!-- end panel-body-->
+</div><!-- end panel-->
+
+
